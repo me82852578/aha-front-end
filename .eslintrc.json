@@ -1,0 +1,11 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
+  ]
+}
