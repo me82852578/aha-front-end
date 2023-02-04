@@ -1,25 +1,23 @@
 import React from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import { useQuery } from '@tanstack/react-query';
-import { usersApi } from './api/source';
-import { User } from './types';
+import {
+  BrowserRouter, Routes, Route, Navigate,
+} from 'react-router-dom';
+import { MainLayout } from './layouts';
+import { Home, Login, NotFound } from './pages';
+import configs from './configs';
 
 export default function App() {
-  const { isSuccess, data } = useQuery({
-    queryKey: [usersApi.sourceUrl],
-    queryFn: usersApi.getData,
-  });
-
-  if (!isSuccess || !data) return <div>Loading...</div>;
-
+  const { home, notFound, login } = configs.path;
   return (
-    <Container maxWidth="sm">
-      {data.map((user:User) => (
-        <Box key={user.id} sx={{ my: 1 }}>
-          {user.name}
-        </Box>
-      ))}
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path={home} element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path={notFound} element={<NotFound />} />
+          <Route path="*" element={<Navigate to={notFound} replace />} />
+        </Route>
+        <Route path={login} element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
