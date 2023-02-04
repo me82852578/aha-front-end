@@ -1,8 +1,8 @@
 export default {
   path: {
     home: '/',
-    tags: 'tags',
-    login: 'login',
-    notFound: 'notFound',
+    tags: '/tags',
+    login: '/login',
+    notFound: '/notFound',
   },
 };

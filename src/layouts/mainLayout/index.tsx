@@ -2,26 +2,26 @@ import * as React from 'react';
 import {
   Box,
   Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Link as MuiLink,
 } from '@mui/material';
 import { Outlet, Link } from 'react-router-dom';
-import sidebarItems from './sidebarItems';
+import Sidebar from './sidebar';
+import configs from '../../configs';
 
 export default function MainLayout() {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{
+      display: 'flex',
+      backgroundColor: 'background.primary',
+    }}
+    >
       <Drawer
         variant="permanent"
-        color="blue"
         sx={{
           width: 80,
           '& .MuiDrawer-paper': {
             width: 80,
+            backgroundColor: 'background.secondary',
           },
         }}
       >
@@ -35,47 +35,20 @@ export default function MainLayout() {
         >
           <MuiLink
             underline="none"
+            unselectable="on"
             component={Link}
-            to={sidebarItems[0].url}
+            to={configs.path.home}
+            fontWeight={700}
+            sx={{
+              background: (theme) => theme.palette.gradient.primary,
+              backgroundClip: 'text',
+              textFillColor: 'transparent',
+            }}
           >
             LOGO
           </MuiLink>
         </Box>
-        <List>
-          {sidebarItems.map((item) => (
-            <ListItem
-              key={item.id}
-              disablePadding
-              sx={{
-                ':hover': {
-                  '.MuiListItemText-root': {
-                    opacity: 1,
-                  },
-                },
-              }}
-            >
-              <ListItemButton
-                component={Link}
-                to={item.url}
-                sx={{
-                  flexDirection: 'column',
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    justifyContent: 'center',
-                  }}
-                >
-                  {item.icon()}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.title}
-                  sx={{ opacity: 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <Sidebar />
       </Drawer>
       <Outlet />
     </Box>
