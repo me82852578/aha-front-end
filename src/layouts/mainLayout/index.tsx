@@ -7,6 +7,7 @@ import {
 import { Outlet, Link } from 'react-router-dom';
 import Sidebar from './sidebar';
 import configs from '../../configs';
+import FollowerPanel from './followerPanel';
 
 export default function MainLayout() {
   return (
@@ -51,6 +52,7 @@ export default function MainLayout() {
         <Sidebar />
       </Drawer>
       <Outlet />
+      <FollowerPanel />
     </Box>
   );
 }
