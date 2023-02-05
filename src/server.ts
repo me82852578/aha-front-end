@@ -21,6 +21,7 @@ export default function makeServer({
       users().seeds(server);
     },
     routes() {
+      this.timing = 500;
       this.namespace = 'api';
       users().routes(this);
     },
