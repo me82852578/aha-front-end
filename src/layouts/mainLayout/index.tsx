@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   Box,
+  Container,
   Drawer,
   Link as MuiLink,
 } from '@mui/material';
@@ -13,7 +14,9 @@ export default function MainLayout() {
   return (
     <Box sx={{
       display: 'flex',
-      backgroundColor: 'background.primary',
+      backgroundColor: 'background.main',
+      height: '100vh',
+      minHeight: '-webkit-fill-available',
     }}
     >
       <Drawer
@@ -22,7 +25,7 @@ export default function MainLayout() {
           width: 80,
           '& .MuiDrawer-paper': {
             width: 80,
-            backgroundColor: 'background.secondary',
+            backgroundColor: 'background.light',
           },
         }}
       >
@@ -51,7 +54,9 @@ export default function MainLayout() {
         </Box>
         <Sidebar />
       </Drawer>
-      <Outlet />
+      <Container component="main" maxWidth="lg">
+        <Outlet />
+      </Container>
       <FollowerPanel />
     </Box>
   );
