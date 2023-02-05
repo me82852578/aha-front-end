@@ -5,7 +5,7 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     gradient: {
-      primary:string
+      main:string
     };
   }
   interface TypeBackground {
@@ -17,7 +17,7 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     gradient:{
-      primary:string
+      main:CSSProperties['background']
     }
   }
 }
@@ -32,7 +32,7 @@ const theme = createTheme({
       contrastText: 'white',
     },
     gradient: {
-      primary: 'linear-gradient(90deg, #FF5C01, #FFD25F )',
+      main: 'linear-gradient(90deg, #FF5C01, #FFD25F )',
     },
   },
   typography: {

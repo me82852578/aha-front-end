@@ -1,13 +1,16 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import { StyledButton } from '../../components';
+import { Box, Stack } from '@mui/material';
+import { StyledButton, StyledTextField } from '../../components';
 
 function Home() {
   return (
     <Box>
-      <StyledButton variant="contained">
-        Search
-      </StyledButton>
+      <Stack spacing={2}>
+        <StyledButton variant="contained">
+          Search
+        </StyledButton>
+        <StyledTextField placeholder="Keyword" />
+      </Stack>
     </Box>
   );
 }

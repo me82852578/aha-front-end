@@ -44,7 +44,7 @@ export default function MainLayout() {
             to={configs.path.home}
             fontWeight={700}
             sx={{
-              background: (theme) => theme.palette.gradient.primary,
+              background: (theme) => theme.palette.gradient.main,
               backgroundClip: 'text',
               textFillColor: 'transparent',
             }}
