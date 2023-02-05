@@ -1,7 +1,8 @@
 import {
-  Box, Tab, Tabs, Typography,
+  Box, Tab, Tabs,
 } from '@mui/material';
 import React, { ReactNode, SyntheticEvent, useState } from 'react';
+import UsersList from './usersList';
 
 interface TabPanelProps {
   children:ReactNode;
@@ -9,7 +10,13 @@ interface TabPanelProps {
   value: number;
 }
 
-const tabItems = [
+interface TabItemProps {
+  id:'followers' | 'following'
+  index: number
+  label:string
+}
+
+const tabItems:TabItemProps[] = [
   {
     id: 'followers',
     index: 0,
@@ -25,17 +32,17 @@ const tabItems = [
 function TabPanel(props: TabPanelProps) {
   const { children, value, index } = props;
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={index.toString()}
+      sx={{
+        flexGrow: 1,
+        overflow: 'hidden',
+      }}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
+      {value === index && children}
+    </Box>
   );
 }
 
@@ -44,8 +51,17 @@ function FollowerPanel() {
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
   return (
-    <Box sx={{ width: '375px', backgroundColor: 'background.secondary' }}>
+    <Box sx={{
+      width: '375px',
+      backgroundColor: 'background.light',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      flexShrink: 0,
+    }}
+    >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
@@ -72,6 +88,7 @@ function FollowerPanel() {
               label={tabItem.label}
               id={tabItem.id}
               sx={{
+                textTransform: 'none',
                 fontSize: '16px',
                 fontWeight: 700,
               }}
@@ -85,7 +102,7 @@ function FollowerPanel() {
           index={tabItem.index}
           value={value}
         >
-          {tabItem.label}
+          <UsersList type={tabItem.id} />
         </TabPanel>
       ))}
     </Box>
