@@ -1,9 +1,14 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import { StyledButton } from '../../components';
 
 function Home() {
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }} />
+    <Box>
+      <StyledButton variant="contained">
+        Search
+      </StyledButton>
+    </Box>
   );
 }
 

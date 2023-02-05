@@ -70,9 +70,10 @@ function UsersList({ type }: UsersListProps) {
             <Box sx={{ pl: 2 }}>
               <StyledChipButton
                 onClick={() => { }}
-                label={item.isFollowing ? 'Following' : 'Follow'}
-                variant={item.isFollowing ? 'filled' : 'outlined'}
-              />
+                variant={item.isFollowing ? 'contained' : 'outlined'}
+              >
+                {item.isFollowing ? 'Following' : 'Follow'}
+              </StyledChipButton>
             </Box>
           </ListItem>
         )))}
