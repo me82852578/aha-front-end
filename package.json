@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore --fix src",
     "prepare": "husky install",
-    "pre-commit": "yarn lint-staged"
+    "pre-commit": "npx lint-staged"
   },
   "browserslist": {
     "production": [
