@@ -9,8 +9,10 @@ declare module '@mui/material/styles' {
     };
   }
   interface TypeBackground {
-    primary:CSSProperties['color']
-    secondary:CSSProperties['color']
+    main:CSSProperties['color']
+    light:CSSProperties['color']
+    dark:CSSProperties['color']
+    contrastText:CSSProperties['color']
   }
 
   interface PaletteOptions {
@@ -24,8 +26,10 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      primary: '#181818',
-      secondary: '#1B1B1B',
+      main: '#181818',
+      light: '#1B1B1B',
+      dark: '#121212',
+      contrastText: 'white',
     },
     gradient: {
       primary: 'linear-gradient(90deg, #FF5C01, #FFD25F )',

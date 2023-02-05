@@ -1,10 +1,24 @@
-# Project Basic Template
-
-Provide a basic template for quickly setup development environment and deploy.
+# Aha front-end exam
 
 ## Table of Contents
 
 [TOC]
+
+## Quick start
+
+1. Install package
+
+    ```sh
+    npm i
+    ```
+
+2. Start project
+
+    ```sh
+    npm run start
+    ```
+
+3. Access `http://localhost:3000` in your browser.
 
 ## Development Environment
 
@@ -34,7 +48,7 @@ Provide a basic template for quickly setup development environment and deploy.
 
   - [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
   - [Vscode settings](.vscode\settings.json)
-- Package Manager :  [yarn](<https://yarnpkg.com/>)
+- Package Manager :  [npm](https://www.npmjs.com/)
 
 ## Lint Tools
 
@@ -59,26 +73,6 @@ Provide a basic template for quickly setup development environment and deploy.
 - Repositories and branches naming rules follow [Git Branching Naming Convention](https://codingsight.com/git-branching-naming-convention-best-practices/)  e.g., `an-awesome-project`, `some-branch`.
 - Commit, follow [How to Write a Git Commit Message](https://cbea.ms/git-commit/), [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and [the Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines).
 
-  - **Overall rules**
-
-      > 1. Separate subject from body with a blank line.
-      > 2. Limit the subject line to 50 characters.
-      > 3. Capitalize the subject line.
-      > 4. Do not end the subject line with a period.
-      > 5. Use the imperative mood in the subject line.
-      > 6. Wrap the body at 72 characters.
-      > 7. Use the body to explain what and why vs. how.
-  
-  - **Format**
-
-       ```bash
-       <type>[optional scope]: <description>
-   
-       [optional body]
-   
-       [optional footer(s)]
-       ```
-
 ---
 
 ## Deploy
@@ -86,7 +80,7 @@ Provide a basic template for quickly setup development environment and deploy.
 - Basic deploy:
 
   ```sh
-  yarn build
+  npm run build
   ```
 
 - With docker and also docker compose:
