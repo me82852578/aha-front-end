@@ -20,9 +20,64 @@ declare module '@mui/material/styles' {
       main:CSSProperties['background']
     }
   }
+
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+    desktop: true; // adds the `mobile` breakpoint
+  }
+
 }
 
 const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          height: '100%',
+          '*::-webkit-scrollbar-track': {
+            boxShadow: 'inset 0 0 7px rgba(0, 0, 0, 0.2)',
+            backgroundColor: '#f5f5f5',
+            borderRadius: '10px',
+          },
+          '*::-webkit-scrollbar': {
+            height: '6px',
+            width: '8px',
+            backgroundColor: '#f5f5f5',
+            borderRadius: '10px',
+          },
+          '*::-webkit-scrollbar-thumb': {
+            borderRadius: '10px',
+            backgroundColor: 'rgb(182, 182, 182)',
+          },
+        },
+        body: {
+          height: '100%',
+        },
+        '#root': {
+          height: '100%',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: { color: '#FFFFFF' },
+      },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      desktop: 765,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     mode: 'dark',
     background: {

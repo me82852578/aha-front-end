@@ -12,7 +12,7 @@ import { useInView } from 'react-intersection-observer';
 import { User } from '../../../types';
 import { usersApi } from '../../../api/source';
 import ListItemSkeleton from './listItemSkeleton';
-import StyledChipButton from './StyledChipButton';
+import { StyledChipButton } from '../../../components';
 
 interface UsersListProps {
   type: 'followers' | 'following';
