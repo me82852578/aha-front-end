@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { StyledButton } from '../../../components';
+import StyledButton from './StyledButton';
 
 const StyledChipButton = styled(StyledButton)(() => ({
   height: '28px',

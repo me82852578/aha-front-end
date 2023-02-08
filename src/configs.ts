@@ -4,5 +4,6 @@ export default {
     tags: '/tags',
     login: '/login',
     notFound: '/notFound',
+    componentsDemo: '/components-demo',
   },
 };

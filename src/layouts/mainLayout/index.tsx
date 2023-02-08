@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
   Box,
-  Container,
   Drawer,
   Link as MuiLink,
+  Container,
 } from '@mui/material';
 import { Outlet, Link } from 'react-router-dom';
 import Sidebar from './sidebar';
@@ -13,10 +13,12 @@ import FollowerPanel from './followerPanel';
 export default function MainLayout() {
   return (
     <Box sx={{
+      position: 'relative',
       display: 'flex',
       backgroundColor: 'background.main',
-      height: '100vh',
-      minHeight: '-webkit-fill-available',
+      height: '100%',
+      overflowY: 'auto',
+      overflowX: 'hidden',
     }}
     >
       <Drawer
@@ -54,10 +56,23 @@ export default function MainLayout() {
         </Box>
         <Sidebar />
       </Drawer>
-      <Container component="main" maxWidth="lg">
+      <Container
+        fixed
+        maxWidth="desktop"
+        sx={{
+          height: '100%',
+        }}
+      >
         <Outlet />
       </Container>
-      <FollowerPanel />
+      <Box sx={{
+        position: 'sticky',
+        top: '0px',
+        right: '0px',
+      }}
+      >
+        <FollowerPanel />
+      </Box>
     </Box>
   );
 }

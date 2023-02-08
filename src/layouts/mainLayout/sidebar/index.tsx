@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Badge,
   List,
   ListItem,
   ListItemButton,
@@ -46,11 +47,26 @@ function Sidebar() {
                 justifyContent: 'center',
               }}
             >
-              {item.icon({
-                sx: {
-                  color: location.pathname === item.url ? 'white' : '#6A6A6A',
-                },
-              })}
+              <Badge
+                variant="dot"
+                invisible={item.id !== '/tags'}
+                color="error"
+                sx={{
+                  '.MuiBadge-dot': {
+                    backgroundColor: '#00D1FF',
+                    minWidth: '7px',
+                    height: '7px',
+                    top: '-2px',
+                    right: '-2px',
+                  },
+                }}
+              >
+                {item.icon({
+                  sx: {
+                    color: location.pathname === item.url ? 'white' : '#6A6A6A',
+                  },
+                })}
+              </Badge>
             </ListItemIcon>
             <ListItemText
               primary={item.title}
