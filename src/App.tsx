@@ -2,16 +2,16 @@ import React from 'react';
 import {
   BrowserRouter, Routes, Route, Navigate,
 } from 'react-router-dom';
-import { MainLayout } from './layouts';
 import {
   ComponentsDemo, Home, Login, NotFound,
 } from './pages';
-import configs from './configs';
+import { path } from './configs';
+import { MainLayout } from './layouts';
 
 export default function App() {
   const {
     home, notFound, login, componentsDemo,
-  } = configs.path;
+  } = path;
   return (
     <BrowserRouter>
       <Routes>

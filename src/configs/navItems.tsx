@@ -1,6 +1,6 @@
 import React from 'react';
 import { SvgIcon, SvgIconProps } from '@mui/material';
-import configs from '../../../configs';
+import path from './path';
 
 function TempIcon(props:SvgIconProps) {
   return (
@@ -22,7 +22,7 @@ function TempIcon(props:SvgIconProps) {
   );
 }
 
-const { home, tags, componentsDemo } = configs.path;
+const { home, tags, componentsDemo } = path;
 
 export default [
   {
