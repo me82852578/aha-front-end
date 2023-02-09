@@ -5,15 +5,19 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { navItems } from '../../configs';
 
+const appBarStyles = {
+  height: '66px',
+  position: 'fixed',
+  top: 'auto',
+  bottom: 0,
+};
+
 function BackBackground() {
   return (
     <AppBar
-      position="fixed"
       sx={{
-        height: '66px',
-        top: 'auto',
-        bottom: 0,
-        display: { md: 'flex' },
+        ...appBarStyles,
+        display: { sm: 'flex', md: 'none' },
         backgroundColor: 'transparent',
       }}
     >
@@ -48,11 +52,8 @@ function BottomBar() {
   return (
     <>
       <AppBar
-        position="fixed"
         sx={{
-          height: '66px',
-          top: 'auto',
-          bottom: 0,
+          ...appBarStyles,
           zIndex: 1101,
           display: { md: 'none' },
           background: 'rgba(24, 24, 24, 0.2)',
