@@ -2,52 +2,23 @@ import React, { useState } from 'react';
 import {
   Box,
   Drawer,
-  Link as MuiLink,
   Container,
   useMediaQuery,
   SwipeableDrawer,
-  ButtonProps,
   AppBar,
   Toolbar,
 } from '@mui/material';
-import { GroupRounded } from '@mui/icons-material';
 import {
-  Outlet, Link, useLocation, useNavigate,
+  Outlet, useLocation, useNavigate,
 } from 'react-router-dom';
 import Sidebar from './sidebar';
 import FollowerPanel from './followerPanel';
-import { GoBackButton, StyledButton } from '../../components';
+import { GoBackButton } from '../../components';
 import { path } from '../../configs';
+import FollowerButton from './followerPanel/followerButton';
+import Logo from './logo';
 
 const topBarHeight = 70;
-
-function FollowerButton(props: ButtonProps) {
-  return (
-    <StyledButton
-      variant="contained"
-      sx={{
-        position: 'fixed',
-        top: topBarHeight / 2 - 16,
-        right: -9,
-        zIndex: 1200,
-        height: '32px',
-        minWidth: '0px',
-        width: '32px',
-        borderRadius: '45% 8px 8px 45%',
-        pl: 2.9,
-        pr: 3,
-        ':hover': {
-          transform: 'translateX(-10px)',
-        },
-        transition: 'all 0.1s linear',
-      }}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
-      <GroupRounded fontSize="small" />
-    </StyledButton>
-  );
-}
 
 export default function MainLayout() {
   const location = useLocation();
@@ -78,20 +49,7 @@ export default function MainLayout() {
               onClick={() => navigate(path.home)}
             />
           ) : (
-            <MuiLink
-              underline="none"
-              unselectable="on"
-              component={Link}
-              to={path.home}
-              fontWeight={700}
-              sx={{
-                background: (theme) => theme.palette.gradient.main,
-                backgroundClip: 'text',
-                textFillColor: 'transparent',
-              }}
-            >
-              LOGO
-            </MuiLink>
+            <Logo />
           )}
         </Toolbar>
       </AppBar>
@@ -115,20 +73,7 @@ export default function MainLayout() {
             alignItems: 'center',
           }}
         >
-          <MuiLink
-            underline="none"
-            unselectable="on"
-            component={Link}
-            to={path.home}
-            fontWeight={700}
-            sx={{
-              background: (theme) => theme.palette.gradient.main,
-              backgroundClip: 'text',
-              textFillColor: 'transparent',
-            }}
-          >
-            LOGO
-          </MuiLink>
+          <Logo />
         </Box>
         <Sidebar />
       </Drawer>
