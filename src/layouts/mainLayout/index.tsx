@@ -38,7 +38,7 @@ export default function MainLayout() {
     >
       <AppBar
         sx={{
-          display: { sm: 'flex', md: 'none' },
+          display: { xs: 'flex', md: 'none' },
         }}
       >
         <Toolbar sx={{ paddingX: '21px', height: topBarHeight }}>
@@ -81,11 +81,18 @@ export default function MainLayout() {
         fixed
         maxWidth="desktop"
         sx={{
-          height: `calc(100% - ${topBarHeight}px)`,
+          height: {
+            xs: `calc(100% - ${topBarHeight}px)`,
+            md: '100%',
+          },
           paddingX: { xs: '20px' },
         }}
       >
-        <Toolbar sx={{ height: topBarHeight }} />
+        <Toolbar sx={{
+          height: topBarHeight,
+          display: { xs: 'flex', md: 'none' },
+        }}
+        />
         <Outlet />
       </Container>
       {mediaQuery1440 ? (
