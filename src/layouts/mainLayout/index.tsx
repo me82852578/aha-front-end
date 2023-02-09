@@ -1,16 +1,51 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Drawer,
   Link as MuiLink,
   Container,
+  useMediaQuery,
+  SwipeableDrawer,
+  ButtonProps,
 } from '@mui/material';
+import { GroupRounded } from '@mui/icons-material';
 import { Outlet, Link } from 'react-router-dom';
 import Sidebar from './sidebar';
-import configs from '../../configs';
 import FollowerPanel from './followerPanel';
+import { StyledButton } from '../../components';
+import { path } from '../../configs';
+
+function FollowerButton(props : ButtonProps) {
+  return (
+    <StyledButton
+      variant="contained"
+      sx={{
+        position: 'fixed',
+        top: '3%',
+        right: -8,
+        zIndex: 1200,
+        height: '32px',
+        minWidth: '0px',
+        width: '32px',
+        borderRadius: '45% 8px 8px 45%',
+        pl: 2.9,
+        pr: 3,
+        ':hover': {
+          transform: 'translateX(-10px)',
+        },
+        transition: 'all 0.1s linear',
+      }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+    >
+      <GroupRounded fontSize="small" />
+    </StyledButton>
+  );
+}
 
 export default function MainLayout() {
+  const mediaQuery1440 = useMediaQuery('(min-width:1440px)');
+  const [swipeableDrawerOpen, setSwipeableDrawerOpen] = useState(false);
   return (
     <Box sx={{
       position: 'relative',
@@ -24,6 +59,7 @@ export default function MainLayout() {
       <Drawer
         variant="permanent"
         sx={{
+          display: { xs: 'none', md: 'block' },
           width: 80,
           '& .MuiDrawer-paper': {
             width: 80,
@@ -43,7 +79,7 @@ export default function MainLayout() {
             underline="none"
             unselectable="on"
             component={Link}
-            to={configs.path.home}
+            to={path.home}
             fontWeight={700}
             sx={{
               background: (theme) => theme.palette.gradient.main,
@@ -61,18 +97,43 @@ export default function MainLayout() {
         maxWidth="desktop"
         sx={{
           height: '100%',
+          paddingX: { xs: '20px' },
         }}
       >
         <Outlet />
       </Container>
-      <Box sx={{
-        position: 'sticky',
-        top: '0px',
-        right: '0px',
-      }}
-      >
-        <FollowerPanel />
-      </Box>
+      {mediaQuery1440 ? (
+        <Box sx={{
+          position: 'sticky',
+          top: '0px',
+          right: '0px',
+        }}
+        >
+          <FollowerPanel />
+        </Box>
+      ) : (
+        <>
+          <FollowerButton onClick={() => setSwipeableDrawerOpen(true)} />
+          <SwipeableDrawer
+            disablePortal
+            open={swipeableDrawerOpen}
+            anchor="right"
+            onClose={() => {
+              setSwipeableDrawerOpen(false);
+            }}
+            onOpen={() => {
+              setSwipeableDrawerOpen(true);
+            }}
+            disableSwipeToOpen={false}
+            disableBackdropTransition
+            minFlingVelocity={250}
+            hysteresis={0.2}
+            swipeAreaWidth={20}
+          >
+            <FollowerPanel />
+          </SwipeableDrawer>
+        </>
+      )}
     </Box>
   );
 }

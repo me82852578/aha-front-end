@@ -1,8 +1,7 @@
 import React from 'react';
-import {
-  Box, Stack,
-} from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { StyledButton, StyledSlider, StyledTextField } from '../../components';
+import BottomBar from './bottomBar';
 
 function Home() {
   const marks = [
@@ -53,6 +52,7 @@ function Home() {
           step={null}
         />
       </Stack>
+      <BottomBar />
     </Box>
   );
 }

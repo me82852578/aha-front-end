@@ -8,14 +8,14 @@ import {
   ListItemText,
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import sidebarItems from './sidebarItems';
+import { navItems } from '../../configs';
 
 function Sidebar() {
   const location = useLocation();
 
   return (
     <List>
-      {sidebarItems.map((item) => (
+      {navItems.map((item) => (
         <ListItem
           key={item.id}
           disablePadding
