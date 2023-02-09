@@ -18,7 +18,7 @@ function BackBackground() {
       sx={{
         ...appBarStyles,
         display: { sm: 'flex', md: 'none' },
-        backgroundColor: 'transparent',
+        backgroundColor: 'background.dark',
       }}
     >
       <Stack

@@ -7,22 +7,28 @@ import {
   useMediaQuery,
   SwipeableDrawer,
   ButtonProps,
+  AppBar,
+  Toolbar,
 } from '@mui/material';
 import { GroupRounded } from '@mui/icons-material';
-import { Outlet, Link } from 'react-router-dom';
+import {
+  Outlet, Link, useLocation, useNavigate,
+} from 'react-router-dom';
 import Sidebar from './sidebar';
 import FollowerPanel from './followerPanel';
-import { StyledButton } from '../../components';
+import { GoBackButton, StyledButton } from '../../components';
 import { path } from '../../configs';
 
-function FollowerButton(props : ButtonProps) {
+const topBarHeight = 70;
+
+function FollowerButton(props: ButtonProps) {
   return (
     <StyledButton
       variant="contained"
       sx={{
         position: 'fixed',
-        top: '3%',
-        right: -8,
+        top: topBarHeight / 2 - 16,
+        right: -9,
         zIndex: 1200,
         height: '32px',
         minWidth: '0px',
@@ -44,18 +50,51 @@ function FollowerButton(props : ButtonProps) {
 }
 
 export default function MainLayout() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const mediaQuery1440 = useMediaQuery('(min-width:1440px)');
   const [swipeableDrawerOpen, setSwipeableDrawerOpen] = useState(false);
   return (
-    <Box sx={{
-      position: 'relative',
-      display: 'flex',
-      backgroundColor: 'background.main',
-      height: '100%',
-      overflowY: 'auto',
-      overflowX: 'hidden',
-    }}
+    <Box
+      sx={{
+        position: 'relative',
+        display: 'flex',
+        backgroundColor: 'background.main',
+        height: '100%',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+      }}
     >
+      <AppBar
+        sx={{
+          display: { sm: 'flex', md: 'none' },
+        }}
+      >
+        <Toolbar sx={{ paddingX: '21px', height: topBarHeight }}>
+          {location.pathname !== path.home ? (
+            <GoBackButton
+              label="Home page"
+              slotsProp={{ iconButton: { sx: { paddingLeft: 0 } } }}
+              onClick={() => navigate(path.home)}
+            />
+          ) : (
+            <MuiLink
+              underline="none"
+              unselectable="on"
+              component={Link}
+              to={path.home}
+              fontWeight={700}
+              sx={{
+                background: (theme) => theme.palette.gradient.main,
+                backgroundClip: 'text',
+                textFillColor: 'transparent',
+              }}
+            >
+              LOGO
+            </MuiLink>
+          )}
+        </Toolbar>
+      </AppBar>
       <Drawer
         variant="permanent"
         sx={{
@@ -67,13 +106,14 @@ export default function MainLayout() {
           },
         }}
       >
-        <Box sx={{
-          width: '100%',
-          height: '88px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        <Box
+          sx={{
+            width: '100%',
+            height: '88px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
           <MuiLink
             underline="none"
@@ -96,18 +136,20 @@ export default function MainLayout() {
         fixed
         maxWidth="desktop"
         sx={{
-          height: '100%',
+          height: `calc(100% - ${topBarHeight}px)`,
           paddingX: { xs: '20px' },
         }}
       >
+        <Toolbar sx={{ height: topBarHeight }} />
         <Outlet />
       </Container>
       {mediaQuery1440 ? (
-        <Box sx={{
-          position: 'sticky',
-          top: '0px',
-          right: '0px',
-        }}
+        <Box
+          sx={{
+            position: 'sticky',
+            top: '0px',
+            right: '0px',
+          }}
         >
           <FollowerPanel />
         </Box>
