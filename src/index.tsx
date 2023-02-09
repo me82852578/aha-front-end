@@ -20,9 +20,7 @@ const queryClient = new QueryClient({
   },
 });
 
-if (process.env.NODE_ENV === 'development') {
-  makeServer({ environment: 'development' });
-}
+makeServer({ environment: 'development' });
 
 root.render(
   <QueryClientProvider client={queryClient}>
