@@ -4,7 +4,6 @@ import path from './path';
 
 function TempIcon(props:SvgIconProps) {
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <SvgIcon {...props}>
       <svg
         width="24"

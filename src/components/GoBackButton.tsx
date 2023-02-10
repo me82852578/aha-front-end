@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { ReactEventHandler, ReactNode } from 'react';
 import {
   IconButton,
@@ -21,10 +20,6 @@ interface GoBackButtonProps extends StackProps {
     icon?: SvgIconProps;
   };
 }
-
-const defaultValue = {
-  label: undefined, icon: undefined, slotsProp: undefined, onClick: undefined,
-};
 
 function GoBackButton({
   label, icon, slotsProp, onClick, ...other
@@ -58,7 +53,5 @@ function GoBackButton({
     </Stack>
   );
 }
-
-GoBackButton.defaultProps = defaultValue;
 
 export default GoBackButton;
