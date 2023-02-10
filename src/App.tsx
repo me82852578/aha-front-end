@@ -3,14 +3,14 @@ import {
   BrowserRouter, Routes, Route, Navigate,
 } from 'react-router-dom';
 import {
-  ComponentsDemo, Home, Login, NotFound,
+  ComponentsDemo, Home, Login, NotFound, Tags,
 } from './pages';
 import { path } from './configs';
 import { MainLayout } from './layouts';
 
 export default function App() {
   const {
-    home, notFound, login, componentsDemo,
+    home, notFound, login, componentsDemo, tags,
   } = path;
   return (
     <BrowserRouter>
@@ -20,6 +20,9 @@ export default function App() {
           <Route path={componentsDemo} element={<ComponentsDemo />} />
           <Route path={notFound} element={<NotFound />} />
           <Route path="*" element={<Navigate to={notFound} replace />} />
+        </Route>
+        <Route path={home} element={<MainLayout disableStyleWrapped />}>
+          <Route path={tags} element={<Tags />} />
         </Route>
         <Route path={login} element={<Login />} />
       </Routes>

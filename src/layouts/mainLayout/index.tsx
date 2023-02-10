@@ -18,9 +18,13 @@ import { path } from '../../configs';
 import FollowerButton from './followerPanel/followerButton';
 import Logo from './logo';
 
+interface MainLayoutProps {
+  disableStyleWrapped? : boolean
+}
+
 const topBarHeight = 70;
 
-export default function MainLayout() {
+export default function MainLayout({ disableStyleWrapped = false } : MainLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const mediaQuery1440 = useMediaQuery('(min-width:1440px)');
@@ -77,41 +81,31 @@ export default function MainLayout() {
         </Box>
         <Sidebar />
       </Drawer>
-      <Container
-        fixed
-        maxWidth="desktop"
-        sx={{
-          height: {
-            xs: `calc(100% - ${topBarHeight}px)`,
-            md: '100%',
-          },
-          paddingX: { xs: '20px' },
-        }}
-      >
-        <Toolbar sx={{
-          height: topBarHeight,
-          display: { xs: 'flex', md: 'none' },
-        }}
-        />
-        <Outlet />
-      </Container>
-      {mediaQuery1440 ? (
-        <Box
-          sx={{
-            position: 'sticky',
-            top: '0px',
-            right: '0px',
-          }}
-        >
-          <FollowerPanel />
-        </Box>
-      ) : (
+      {disableStyleWrapped ? <Outlet /> : (
         <>
+          <Container
+            fixed
+            maxWidth="desktop"
+            sx={{
+              height: {
+                xs: `calc(100% - ${topBarHeight}px)`,
+                md: '100%',
+              },
+              paddingX: { xs: '20px' },
+            }}
+          >
+            <Toolbar sx={{
+              height: topBarHeight,
+              display: { xs: 'flex', md: 'none' },
+            }}
+            />
+            <Outlet />
+          </Container>
           <FollowerButton onClick={() => setSwipeableDrawerOpen(true)} />
           <SwipeableDrawer
-            disablePortal
             open={swipeableDrawerOpen}
             anchor="right"
+            // variant="temporary"
             onClose={() => {
               setSwipeableDrawerOpen(false);
             }}
@@ -123,6 +117,10 @@ export default function MainLayout() {
             minFlingVelocity={250}
             hysteresis={0.2}
             swipeAreaWidth={20}
+            variant={mediaQuery1440 ? 'permanent' : 'temporary'}
+            PaperProps={{
+              sx: { position: mediaQuery1440 ? 'sticky' : 'fixed' },
+            }}
           >
             <FollowerPanel />
           </SwipeableDrawer>
