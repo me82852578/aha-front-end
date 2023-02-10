@@ -45,7 +45,7 @@ const theme = createTheme({
           },
           '*::-webkit-scrollbar': {
             height: '6px',
-            width: '8px',
+            width: '7px',
             backgroundColor: '#f5f5f5',
             borderRadius: '10px',
           },
