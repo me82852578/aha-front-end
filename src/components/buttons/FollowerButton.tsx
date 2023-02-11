@@ -1,7 +1,7 @@
 import { ButtonProps } from '@mui/material';
 import React from 'react';
 import { GroupRounded } from '@mui/icons-material';
-import { StyledButton } from '../../../components';
+import StyledButton from './StyledButton';
 
 function FollowerButton(props: ButtonProps) {
   return (
@@ -9,9 +9,9 @@ function FollowerButton(props: ButtonProps) {
       variant="contained"
       sx={{
         position: 'fixed',
-        top: 19,
+        top: 25,
         right: 0,
-        zIndex: 1200,
+        zIndex: 1100,
         height: '32px',
         minWidth: '0px',
         width: '32px',
@@ -23,7 +23,6 @@ function FollowerButton(props: ButtonProps) {
         },
         transition: 'all 0.1s linear',
       }}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <GroupRounded fontSize="small" />

@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import { UserType } from '../../../types';
-import { usersApi } from '../../../api/source';
+import { UserType } from '../../types';
+import { usersApi } from '../../api/source';
 import ListItemSkeleton from './listItemSkeleton';
-import { StyledChipButton } from '../../../components';
+import { StyledChipButton } from '../../components';
 
 interface UsersListProps {
   type: 'followers' | 'following';

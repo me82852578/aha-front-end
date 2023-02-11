@@ -4,7 +4,6 @@ import {
   Drawer,
   Container,
   useMediaQuery,
-  SwipeableDrawer,
   AppBar,
   Toolbar,
 } from '@mui/material';
@@ -12,11 +11,10 @@ import {
   Outlet, useLocation, useNavigate,
 } from 'react-router-dom';
 import Sidebar from './sidebar';
-import FollowerPanel from './followerPanel';
-import { GoBackButton } from '../../components';
+import { FollowerButton, GoBackButton, SwipeableDrawer } from '../../components';
 import { path } from '../../configs';
-import FollowerButton from './followerPanel/followerButton';
 import Logo from './logo';
+import { FollowerPanel } from '../../containers';
 
 interface MainLayoutProps {
   disableStyleWrapped? : boolean
@@ -105,22 +103,18 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
           <FollowerButton onClick={() => setSwipeableDrawerOpen(true)} />
           <SwipeableDrawer
             open={swipeableDrawerOpen}
-            anchor="right"
-            // variant="temporary"
-            onClose={() => {
-              setSwipeableDrawerOpen(false);
-            }}
-            onOpen={() => {
-              setSwipeableDrawerOpen(true);
-            }}
-            disableSwipeToOpen={false}
-            disableBackdropTransition
-            minFlingVelocity={250}
-            hysteresis={0.2}
-            swipeAreaWidth={20}
+            onClose={() => setSwipeableDrawerOpen(false)}
+            onOpen={() => setSwipeableDrawerOpen(true)}
             variant={mediaQuery1440 ? 'permanent' : 'temporary'}
             PaperProps={{
-              sx: { position: mediaQuery1440 ? 'sticky' : 'fixed' },
+              sx: {
+                position: mediaQuery1440 ? 'relative' : 'fixed',
+              },
+            }}
+            sx={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 1101,
             }}
           >
             <FollowerPanel />
