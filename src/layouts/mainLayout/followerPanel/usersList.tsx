@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import { User } from '../../../types';
+import { UserType } from '../../../types';
 import { usersApi } from '../../../api/source';
 import ListItemSkeleton from './listItemSkeleton';
 import { StyledChipButton } from '../../../components';
@@ -61,7 +61,7 @@ function UsersList({ type }: UsersListProps) {
           <ListItemSkeleton key={k} />
         ))}
       {data
-        && data.pages.map((group) => group.data.map((item: User) => (
+        && data.pages.map((group) => group.data.map((item: UserType) => (
           <ListItem sx={{ px: '16px' }} key={item.id}>
             <ListItemAvatar>
               <Avatar alt={item.name} src={item.avater} />

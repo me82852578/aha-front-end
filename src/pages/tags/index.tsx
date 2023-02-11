@@ -2,6 +2,7 @@ import {
   Box, Container, Unstable_Grid2 as Grid, Stack, Typography,
 } from '@mui/material';
 import React from 'react';
+import { TagType } from '../../types';
 
 const data = [
   {
@@ -126,10 +127,7 @@ const data = [
   },
 ];
 
-interface TagProps {
-  name?: string;
-  count?: number;
-}
+interface TagProps extends Omit<TagType, 'id' > {}
 
 function Tag({ name = '', count = 0 }: TagProps) {
   return (
@@ -193,7 +191,7 @@ function Tags() {
             paddingY="0px"
             visibility="hidden"
           >
-            <Tag />
+            <Tag name="null" count={0} />
           </Grid>
         ))}
       </Grid>

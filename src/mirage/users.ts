@@ -5,18 +5,18 @@ import {
 import { ModelDefinition } from 'miragejs/-types';
 import Schema from 'miragejs/orm/schema';
 import { faker } from '@faker-js/faker';
-import { User } from '../types';
+import { UserType } from '../types';
 
 type UsersResponse = {
   total:number
   totalPages:number
   page:number
   pageSize:number
-  data:User[]
+  data:UserType[]
 };
 
-const UserModel: ModelDefinition<User> = Model.extend({});
-const UserFactory = Factory.extend<User>(
+const UserModel: ModelDefinition<UserType> = Model.extend({});
+const UserFactory = Factory.extend<UserType>(
   {
     id: () => faker.datatype.uuid(),
     name: () => faker.name.fullName(),
