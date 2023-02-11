@@ -1,7 +1,7 @@
 import { ButtonProps } from '@mui/material';
 import React from 'react';
 import { GroupRounded } from '@mui/icons-material';
-import { StyledButton } from '../../../components';
+import StyledButton from './StyledButton';
 
 function FollowerButton(props: ButtonProps) {
   return (

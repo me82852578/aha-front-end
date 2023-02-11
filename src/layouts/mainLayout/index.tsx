@@ -11,11 +11,10 @@ import {
   Outlet, useLocation, useNavigate,
 } from 'react-router-dom';
 import Sidebar from './sidebar';
-import FollowerPanel from './followerPanel';
-import { GoBackButton, SwipeableDrawer } from '../../components';
+import { FollowerButton, GoBackButton, SwipeableDrawer } from '../../components';
 import { path } from '../../configs';
-import FollowerButton from './followerPanel/followerButton';
 import Logo from './logo';
+import { FollowerPanel } from '../../containers';
 
 interface MainLayoutProps {
   disableStyleWrapped? : boolean

@@ -1,5 +1,4 @@
-export { default as StyledButton } from './StyledButton';
 export { default as StyledTextField } from './StyledTextField';
 export { default as StyledSlider } from './StyledSlider';
-export { default as StyledChipButton } from './StyledChipButton';
-export { default as GoBackButton } from './GoBackButton';
+export { default as SwipeableDrawer } from './SwipeableDrawer';
+export * from './buttons';
