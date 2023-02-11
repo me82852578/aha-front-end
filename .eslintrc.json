@@ -7,5 +7,9 @@
     "airbnb/hooks",
     "airbnb-typescript",
     "plugin:@tanstack/eslint-plugin-query/recommended"
-  ]
+  ],
+  "rules": {
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off"
+  }
 }

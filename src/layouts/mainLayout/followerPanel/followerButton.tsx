@@ -10,7 +10,7 @@ function FollowerButton(props: ButtonProps) {
       sx={{
         position: 'fixed',
         top: 19,
-        right: -9,
+        right: 0,
         zIndex: 1200,
         height: '32px',
         minWidth: '0px',

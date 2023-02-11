@@ -50,7 +50,6 @@ function CustomSlider({
   return (
     <Box>
       <StyledSlider
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...other}
         defaultValue={defaultValue}
         value={value}
