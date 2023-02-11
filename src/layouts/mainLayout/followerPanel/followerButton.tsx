@@ -11,7 +11,7 @@ function FollowerButton(props: ButtonProps) {
         position: 'fixed',
         top: 19,
         right: 0,
-        zIndex: 1200,
+        zIndex: 1100,
         height: '32px',
         minWidth: '0px',
         width: '32px',
@@ -23,7 +23,6 @@ function FollowerButton(props: ButtonProps) {
         },
         transition: 'all 0.1s linear',
       }}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <GroupRounded fontSize="small" />
