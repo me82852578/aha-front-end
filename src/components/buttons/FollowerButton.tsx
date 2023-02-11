@@ -9,7 +9,7 @@ function FollowerButton(props: ButtonProps) {
       variant="contained"
       sx={{
         position: 'fixed',
-        top: 19,
+        top: 25,
         right: 0,
         zIndex: 1100,
         height: '32px',

@@ -6,10 +6,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { TagType } from '../../types';
 import { tagsApi } from '../../api/source';
+import { FollowerButton, SwipeableDrawer } from '../../components';
+import { FollowerPanel } from '../../containers';
 
 interface TagProps extends Omit<TagType, 'id'> {}
 
@@ -51,6 +53,7 @@ function Tag({ name = '', count = 0 }: TagProps) {
 }
 
 function Tags() {
+  const [swipeableDrawerOpen, setSwipeableDrawerOpen] = useState(false);
   const {
     data, isLoading, isSuccess, isFetching,
   } = useQuery({
@@ -59,20 +62,21 @@ function Tags() {
   });
 
   return (
-    <Container fixed maxWidth="md">
-      <Box height={{ xs: '150px', md: '140px' }} />
-      <Grid
-        container
-        columnSpacing="24px"
-        rowSpacing={{ xs: '24px', sm: '36px' }}
-        justifyContent="center"
-        pl="6px"
-        pb="80px"
-      >
-        {isLoading || isFetching || !isSuccess
-          ? Array.from(Array(4).keys()).map((k, index) => (
-            <Grid key={k} position="relative">
-              {index === 0
+    <>
+      <Container fixed maxWidth="md">
+        <Box height={{ xs: '150px', md: '140px' }} />
+        <Grid
+          container
+          columnSpacing="24px"
+          rowSpacing={{ xs: '24px', sm: '36px' }}
+          justifyContent="center"
+          pl="6px"
+          pb="80px"
+        >
+          {isLoading || isFetching || !isSuccess
+            ? Array.from(Array(4).keys()).map((k, index) => (
+              <Grid key={k} position="relative">
+                {index === 0
               && (
               <Typography
                 fontSize="1.5rem"
@@ -84,27 +88,27 @@ function Tags() {
                 Tags
               </Typography>
               )}
-              <Skeleton
-                variant="rounded"
-                width={150}
-                height={150}
-                sx={{ borderRadius: '8px', mb: '8px' }}
-              />
-              <Skeleton
-                width={100}
-                variant="text"
-                sx={{ fontSize: '0.9rem' }}
-              />
-              <Skeleton
-                width={50}
-                variant="text"
-                sx={{ fontSize: '0.7rem' }}
-              />
-            </Grid>
-          ))
-          : data.map((item: TagType, index:number) => (
-            <Grid key={item.id} position="relative">
-              {index === 0
+                <Skeleton
+                  variant="rounded"
+                  width={150}
+                  height={150}
+                  sx={{ borderRadius: '8px', mb: '8px' }}
+                />
+                <Skeleton
+                  width={100}
+                  variant="text"
+                  sx={{ fontSize: '0.9rem' }}
+                />
+                <Skeleton
+                  width={50}
+                  variant="text"
+                  sx={{ fontSize: '0.7rem' }}
+                />
+              </Grid>
+            ))
+            : data.map((item: TagType, index:number) => (
+              <Grid key={item.id} position="relative">
+                {index === 0
               && (
               <Typography
                 fontSize="1.5rem"
@@ -116,22 +120,32 @@ function Tags() {
                 Tags
               </Typography>
               )}
-              <Tag name={item.name} count={item.count} />
+                <Tag name={item.name} count={item.count} />
+              </Grid>
+            ))}
+          {Array.from(Array(4).keys()).map((k) => (
+            <Grid
+              key={k}
+              height="0px"
+              overflow="hidden"
+              paddingY="0px"
+              visibility="hidden"
+            >
+              <Tag name="null" count={0} />
             </Grid>
           ))}
-        {Array.from(Array(4).keys()).map((k) => (
-          <Grid
-            key={k}
-            height="0px"
-            overflow="hidden"
-            paddingY="0px"
-            visibility="hidden"
-          >
-            <Tag name="null" count={0} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+        </Grid>
+      </Container>
+      <FollowerButton onClick={() => setSwipeableDrawerOpen(true)} />
+      <SwipeableDrawer
+        open={swipeableDrawerOpen}
+        onClose={() => setSwipeableDrawerOpen(false)}
+        onOpen={() => setSwipeableDrawerOpen(true)}
+        variant="temporary"
+      >
+        <FollowerPanel />
+      </SwipeableDrawer>
+    </>
   );
 }
 
