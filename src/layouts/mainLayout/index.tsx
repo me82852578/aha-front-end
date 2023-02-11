@@ -42,10 +42,10 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
     >
       <AppBar
         sx={{
-          display: { xs: 'flex', md: 'none' },
+          display: { xs: 'flex', md: 'none', boxShadow: 'none' },
         }}
       >
-        <Toolbar sx={{ paddingX: '21px', height: topBarHeight }}>
+        <Toolbar sx={{ paddingX: '21px', height: topBarHeight, backgroundColor: 'background.main' }}>
           {location.pathname !== path.home ? (
             <GoBackButton
               label="Home page"
@@ -65,6 +65,7 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
           '& .MuiDrawer-paper': {
             width: 80,
             backgroundColor: 'background.light',
+            borderRight: 'none',
           },
         }}
       >

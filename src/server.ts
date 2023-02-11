@@ -2,7 +2,7 @@
 import {
   createServer,
 } from 'miragejs';
-import users from './mirage/users';
+import { users, tags } from './mirage';
 
 export default function makeServer({
   environment = 'test' || 'development',
@@ -11,19 +11,23 @@ export default function makeServer({
     environment,
     models: {
       ...users().models,
+      ...tags().models,
     },
 
     factories: {
       ...users().factories,
+      ...tags().factories,
     },
 
     seeds(server) {
       users().seeds(server);
+      tags().seeds(server);
     },
     routes() {
       this.timing = 500;
       this.namespace = 'api';
       users().routes(this);
+      tags().routes(this);
     },
   });
 
