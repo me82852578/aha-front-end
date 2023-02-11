@@ -71,7 +71,7 @@ function Sidebar() {
             <ListItemText
               primary={item.title}
               sx={{ opacity: 0 }}
-              primaryTypographyProps={{ fontSize: '12px' }}
+              primaryTypographyProps={{ fontSize: '0.75rem' }}
             />
           </ListItemButton>
         </ListItem>

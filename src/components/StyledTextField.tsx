@@ -3,7 +3,7 @@ import { TextField, styled } from '@mui/material';
 const StyledTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
     height: '60px',
-    fontSize: '14px',
+    fontSize: '0.875rem',
     fieldset: {
       borderWidth: '3px',
     },

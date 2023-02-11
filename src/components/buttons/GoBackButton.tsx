@@ -46,7 +46,7 @@ function GoBackButton({
         )}
       </IconButton>
       {label && (
-        <Typography fontSize="24px" fontWeight={400} paddingLeft="5.16px" {...slotsProp?.typography}>
+        <Typography fontSize="1.5rem" fontWeight={400} paddingLeft="5.16px" {...slotsProp?.typography}>
           {label}
         </Typography>
       )}

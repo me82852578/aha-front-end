@@ -37,13 +37,13 @@ function Home() {
   return (
     <Stack height="100%" justifyContent="space-between" pt="56px">
       <Stack spacing="20px">
-        <Typography fontSize="24px" fontWeight={400}>Search</Typography>
+        <Typography fontSize="1.5rem" fontWeight={400}>Search</Typography>
         <StyledTextField placeholder="Keyword" />
         <Divider sx={{ py: '10px' }} />
-        <Typography fontSize="24px" fontWeight={400}># of results per page</Typography>
+        <Typography fontSize="1.5rem" fontWeight={400}># of results per page</Typography>
         <Stack direction="row" alignItems="flex-end" spacing="10px">
-          <Typography fontSize="48px" fontWeight={700}>{prePageResults}</Typography>
-          <Typography fontSize="16px" fontWeight={400} lineHeight="56px">results</Typography>
+          <Typography fontSize="3rem" fontWeight={700}>{prePageResults}</Typography>
+          <Typography fontSize="1rem" fontWeight={400} lineHeight="56px">results</Typography>
         </Stack>
         <StyledSlider
           marks={marks}
