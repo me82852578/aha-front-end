@@ -43,11 +43,7 @@ function UsersList({ type }: UsersListProps) {
         },
       }}
     >
-      {!isSuccess
-        && Array.from(Array(pageSize + 5).keys()).map((k) => (
-          <ListItemSkeleton key={k} />
-        ))}
-      {data
+      {isSuccess && data
         && data.pages.map((group) => group.data.map((item: UserType) => (
           <ListItem sx={{ px: '16px' }} key={item.id}>
             <ListItemAvatar>
@@ -64,8 +60,8 @@ function UsersList({ type }: UsersListProps) {
             </Box>
           </ListItem>
         )))}
-      {isFetchingNextPage
-        && Array.from(Array(pageSize).keys()).map((k) => (
+      {(isFetchingNextPage || !isSuccess)
+        && Array.from(Array(pageSize + 5).keys()).map((k) => (
           <ListItemSkeleton key={k} />
         ))}
       <div ref={ref} />

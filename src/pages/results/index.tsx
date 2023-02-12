@@ -5,11 +5,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { UserType } from '../../types';
-import { usersApi } from '../../api/source';
 import { GoBackButton, StyledButton } from '../../components';
+import { useUsersInfiniteQuery } from '../../api/source/users';
 
 interface ResultProps extends Omit<UserType, 'id'> {}
 
@@ -21,7 +21,10 @@ function Result({ name = '', username = '', avater = '' }: ResultProps) {
         width="100%"
         alt={name}
         src={avater}
-        sx={{ objectFit: 'cover', aspectRatio: { xs: '3 / 1.995', sm: '3 / 2' } }}
+        sx={{
+          objectFit: 'cover',
+          aspectRatio: { xs: '3 / 1.995', sm: '3 / 2' },
+        }}
         loading="lazy"
       />
       <Box pt="1px">
@@ -38,13 +41,23 @@ function Result({ name = '', username = '', avater = '' }: ResultProps) {
   );
 }
 
+const pageSize = 10;
+const keyword = 'al';
 function Results() {
+  const { ref, inView } = useInView();
   const {
-    data, isLoading, isSuccess, isFetching,
-  } = useQuery({
-    queryKey: [usersApi.sourceUrl],
-    queryFn: usersApi.getData,
-  });
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isSuccess,
+  } = useUsersInfiniteQuery({ type: 'followers', pageSize, keyword });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, inView]);
 
   return (
     <>
@@ -56,11 +69,55 @@ function Results() {
         justifyContent="center"
         pb="44px"
       >
-        {isLoading || isFetching || !isSuccess
-          ? Array.from(Array(4).keys()).map((k, index) => (
+        {data
+          && isSuccess
+          && data.pages.map((group) => group.data.map((item: UserType, index: number) => (
+            <Grid key={item.id} position="relative" xs={12} sm={6} md={4}>
+              {group.page === 1 && index === 0 && (
+              <GoBackButton
+                label="Results"
+                position="absolute"
+                top={{ xs: '-44px', sm: '-52px' }}
+                left={{ xs: '-46px', md: '-34px' }}
+                spacing={2}
+                slotsProp={{
+                  typography: {
+                    fontSize: { xs: '1.5rem', md: '1.875rem' },
+                  },
+                  iconButton: {
+                    sx: { visibility: { xs: 'hidden', md: 'visible' } },
+                  },
+                }}
+              />
+              )}
+              <Result
+                name={item.name}
+                username={item.username}
+                avater={item.avater}
+              />
+            </Grid>
+          )))}
+        {isSuccess && !data.pages[0].total && (
+        <Grid position="relative" xs={12} sm={6} md={4}>
+          <GoBackButton
+            label="Results"
+            position="absolute"
+            top={{ xs: '-44px', sm: '-52px' }}
+            left={{ xs: '-46px', md: '-34px' }}
+            spacing={2}
+            slotsProp={{
+              typography: { fontSize: { xs: '1.5rem', md: '1.875rem' } },
+              iconButton: {
+                sx: { visibility: { xs: 'hidden', md: 'visible' } },
+              },
+            }}
+          />
+        </Grid>
+        )}
+        {(isFetchingNextPage || !isSuccess)
+          && Array.from(Array(pageSize).keys()).map((k, index) => (
             <Grid key={k} position="relative" xs={12} sm={6} md={4}>
-              {index === 0
-              && (
+              {index === 0 && !data && (
                 <GoBackButton
                   label="Results"
                   position="absolute"
@@ -69,7 +126,9 @@ function Results() {
                   spacing={2}
                   slotsProp={{
                     typography: { fontSize: { xs: '1.5rem', md: '1.875rem' } },
-                    iconButton: { sx: { visibility: { xs: 'hidden', md: 'visible' } } },
+                    iconButton: {
+                      sx: { visibility: { xs: 'hidden', md: 'visible' } },
+                    },
                   }}
                 />
               )}
@@ -94,25 +153,6 @@ function Results() {
                 sx={{ fontSize: '0.7rem' }}
               />
             </Grid>
-          ))
-          : data.data.map((item: UserType, index:number) => (
-            <Grid key={item.id} position="relative" xs={12} sm={6} md={4}>
-              {index === 0
-              && (
-                <GoBackButton
-                  label="Results"
-                  position="absolute"
-                  top={{ xs: '-44px', sm: '-52px' }}
-                  left={{ xs: '-46px', md: '-34px' }}
-                  spacing={2}
-                  slotsProp={{
-                    typography: { fontSize: { xs: '1.5rem', md: '1.875rem' } },
-                    iconButton: { sx: { visibility: { xs: 'hidden', md: 'visible' } } },
-                  }}
-                />
-              )}
-              <Result name={item.name} username={item.username} avater={item.avater} />
-            </Grid>
           ))}
         {Array.from(Array(4).keys()).map((k) => (
           <Grid
@@ -124,13 +164,21 @@ function Results() {
             overflow="hidden"
             paddingY="0px"
             visibility="hidden"
-          >
-            <Result />
-          </Grid>
+          />
         ))}
       </Grid>
-      <StyledButton variant="contained" sx={{ width: '343px', mb: '50px' }}>
-        MORE
+      <StyledButton
+        variant="contained"
+        sx={{
+          width: { xs: '335px', md: '343px' },
+          mb: '50px',
+          visibility: { xs: !hasNextPage ? 'visible' : 'hidden', md: 'visible' },
+        }}
+        disabled={!hasNextPage}
+        onClick={() => fetchNextPage()}
+      >
+        {hasNextPage ? 'MORE' : 'NO MORE'}
+        <Box ref={ref} sx={{ display: { xs: 'block', md: 'none' } }} />
       </StyledButton>
     </>
   );
