@@ -7,12 +7,11 @@ import {
   ListItemAvatar,
   ListItemText,
 } from '@mui/material';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { UserType } from '../../types';
-import { usersApi } from '../../api/source';
 import ListItemSkeleton from './listItemSkeleton';
 import { StyledChipButton } from '../../components';
+import { useUsersInfiniteQuery } from '../../api/source/users';
 
 interface UsersListProps {
   type: 'followers' | 'following';
@@ -22,21 +21,9 @@ const pageSize = 15;
 
 function UsersList({ type }: UsersListProps) {
   const { ref, inView } = useInView();
-
   const {
     data, fetchNextPage, hasNextPage, isFetchingNextPage, isSuccess,
-  } = useInfiniteQuery({
-    queryKey: [usersApi.sourceUrl, type],
-    queryFn:
-        type === 'followers'
-          ? ({ pageParam }) => usersApi.getData({ pageParam, pageSize })
-          : ({ pageParam }) => usersApi.getIsFollowingData({ pageParam, pageSize }),
-    getNextPageParam: (lastPage) => (
-      lastPage.totalPages === lastPage.page || !lastPage.total || !lastPage.totalPages
-        ? undefined
-        : lastPage.page + 1
-    ),
-  });
+  } = useUsersInfiniteQuery({ type, pageSize });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -69,7 +56,7 @@ function UsersList({ type }: UsersListProps) {
             <ListItemText primary={item.name} secondary={item.username} />
             <Box sx={{ pl: 2 }}>
               <StyledChipButton
-                onClick={() => { }}
+                onClick={() => {}}
                 variant={item.isFollowing ? 'contained' : 'outlined'}
               >
                 {item.isFollowing ? 'Following' : 'Follow'}
