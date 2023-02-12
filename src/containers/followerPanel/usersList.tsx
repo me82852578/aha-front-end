@@ -29,10 +29,10 @@ function UsersList({ type }: UsersListProps) {
     queryKey: [usersApi.sourceUrl, type],
     queryFn:
         type === 'followers'
-          ? () => usersApi.getData({ pageSize })
-          : () => usersApi.getIsFollowingData({ pageSize }),
+          ? ({ pageParam }) => usersApi.getData({ pageParam, pageSize })
+          : ({ pageParam }) => usersApi.getIsFollowingData({ pageParam, pageSize }),
     getNextPageParam: (lastPage) => (
-      lastPage.totalPages === lastPage.page
+      lastPage.totalPages === lastPage.page || !lastPage.total || !lastPage.totalPages
         ? undefined
         : lastPage.page + 1
     ),
