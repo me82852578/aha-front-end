@@ -1,7 +1,7 @@
 import { SwipeableDrawer as MuiSwipeableDrawer, SwipeableDrawerProps } from '@mui/material';
 import React from 'react';
 
-function SwipeableDrawer(props : SwipeableDrawerProps) {
+function SwipeableDrawer({ PaperProps, ...other } : SwipeableDrawerProps) {
   return (
     <MuiSwipeableDrawer
       anchor="right"
@@ -10,7 +10,14 @@ function SwipeableDrawer(props : SwipeableDrawerProps) {
       minFlingVelocity={250}
       hysteresis={0.2}
       swipeAreaWidth={20}
-      {...props}
+      PaperProps={{
+        ...PaperProps,
+        sx: {
+          borderLeft: 'none',
+          ...PaperProps?.sx,
+        },
+      }}
+      {...other}
     />
   );
 }

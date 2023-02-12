@@ -70,7 +70,6 @@ function Tags() {
           columnSpacing="24px"
           rowSpacing={{ xs: '24px', sm: '36px' }}
           justifyContent="center"
-          pl="6px"
           pb="80px"
         >
           {isLoading || isFetching || !isSuccess

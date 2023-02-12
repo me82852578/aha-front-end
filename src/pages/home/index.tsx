@@ -58,7 +58,7 @@ function Home() {
         />
         <Divider sx={{ py: '10px' }} />
       </Stack>
-      <StyledButton variant="contained" sx={{ marginBottom: '100px' }}>
+      <StyledButton variant="contained" sx={{ marginBottom: '100px', width: { md: '343px' } }}>
         SEARCH
       </StyledButton>
       <BottomBar />

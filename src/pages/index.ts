@@ -3,3 +3,4 @@ export { default as Tags } from './tags';
 export { default as Login } from './login';
 export { default as NotFound } from './notFound';
 export { default as ComponentsDemo } from './componentsDemo';
+export { default as Results } from './results';
