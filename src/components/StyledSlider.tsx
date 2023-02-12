@@ -24,7 +24,7 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
   },
   '.MuiSlider-markLabel': {
     top: '36px',
-    fontSize: '16px',
+    fontSize: '1rem',
   },
   '.test': {
     color: 'blue',

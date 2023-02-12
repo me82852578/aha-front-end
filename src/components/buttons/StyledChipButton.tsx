@@ -5,7 +5,7 @@ const StyledChipButton = styled(StyledButton)(() => ({
   height: '28px',
   borderRadius: '20px',
   textTransform: 'none',
-  fontSize: '12px',
+  fontSize: '0.75rem',
   fontWeight: 600,
   padding: '8px 10px',
   fontFamily: "'Open Sans', sans-serif",

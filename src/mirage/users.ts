@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  Factory, Model, Registry, Request, Response, Server,
+  Factory, Instantiate, Model, Registry, Request, Response, Server,
 } from 'miragejs';
 import { ModelDefinition } from 'miragejs/-types';
 import Schema from 'miragejs/orm/schema';
@@ -32,50 +32,60 @@ const factories = { user: UserFactory };
 type AppRegistry = Registry<typeof models, typeof factories>;
 type AppSchema = Schema<AppRegistry>;
 
+function makeResponse(
+  usersModels:Instantiate<AppRegistry, 'user'>[],
+  page: string,
+  pageSize: string,
+):UsersResponse {
+  const totalFound = usersModels.length;
+  const pageInt = parseInt(page, 10);
+  const pageSizeInt = parseInt(pageSize, 10);
+  const totalPages = Math.ceil(totalFound / pageSizeInt);
+  return {
+    total: totalFound,
+    totalPages,
+    page: pageInt,
+    pageSize: pageSizeInt,
+    data: usersModels.slice(
+      pageSizeInt * (pageInt - 1),
+      pageSizeInt * (pageInt - 1) + pageSizeInt,
+    ),
+  };
+}
+
 export default function users() {
-  const total = 100;
   return {
     models,
     factories,
     seeds(server:Server) {
-      server.createList('user', total);
+      server.createList('user', 100);
     },
     routes(server:Server) {
       server.get('/users/all', (schema: AppSchema, request:Request) => {
-        const { page, pageSize } = request.queryParams;
-        const pageInt = parseInt(page, 10);
-        const pageSizeInt = parseInt(pageSize, 10);
-        const totalPages = Math.ceil(total / pageSizeInt);
-        const userSchema = schema.all('user');
+        const { page, pageSize, keyword = '' } = request.queryParams;
+        const keywordRegExp = new RegExp(keyword, 'i');
+        const findByKeyword = schema.where('user', (user) => {
+          if (!keyword) return true;
+          if (!user.name || !user.username) return false;
+          return keywordRegExp.test(user.name) || keywordRegExp.test(user.username);
+        });
 
-        const responseData : UsersResponse = {
-          total,
-          totalPages,
-          page: pageInt,
-          pageSize: pageSizeInt,
-          data: userSchema.models.slice(pageSizeInt * pageInt, pageSizeInt * pageInt + pageSizeInt),
-        };
+        const responseData = makeResponse(findByKeyword.models, page, pageSize);
 
         return new Response(200, { }, responseData);
       });
 
       server.get('/users/friends', (schema: AppSchema, request:Request) => {
-        const { page, pageSize } = request.queryParams;
-        const pageInt = parseInt(page, 10);
-        const pageSizeInt = parseInt(pageSize, 10);
-        const friendUserSchema = schema.where('user', { isFollowing: true });
-        const totalFound = friendUserSchema.models.length;
-        const totalPages = Math.ceil(totalFound / pageSizeInt);
+        const { page, pageSize, keyword } = request.queryParams;
+        const keywordRegExp = new RegExp(keyword, 'i');
+        const findByKeyword = schema.where('user', (user) => {
+          if (!user.isFollowing) return false;
+          if (!keyword) return true;
+          if (!user.name || !user.username) return false;
+          return keywordRegExp.test(user.name) || keywordRegExp.test(user.username);
+        });
 
-        const responseData : UsersResponse = {
-          total: totalFound,
-          totalPages,
-          page: pageInt,
-          pageSize: pageSizeInt,
-          data: friendUserSchema
-            .models
-            .slice(pageSizeInt * pageInt, pageSizeInt * pageInt + pageSizeInt),
-        };
+        const responseData = makeResponse(findByKeyword.models, page, pageSize);
 
         return new Response(200, { }, responseData);
       });

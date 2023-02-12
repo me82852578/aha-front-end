@@ -42,7 +42,7 @@ function Tag({ name = '', count = 0 }: TagProps) {
         <Typography fontSize="14.9px" noWrap>
           {name}
         </Typography>
-        <Typography fontSize="11.17px" color="#B2B2B2">
+        <Typography fontSize="11.17px" color="#B2B2B2" noWrap>
           {count}
           {' '}
           Results
@@ -70,7 +70,6 @@ function Tags() {
           columnSpacing="24px"
           rowSpacing={{ xs: '24px', sm: '36px' }}
           justifyContent="center"
-          pl="6px"
           pb="80px"
         >
           {isLoading || isFetching || !isSuccess

@@ -89,7 +89,7 @@ function FollowerPanel() {
               id={tabItem.id}
               sx={{
                 textTransform: 'none',
-                fontSize: '16px',
+                fontSize: '1rem',
                 fontWeight: 700,
               }}
             />

@@ -4,4 +4,5 @@ export default {
   login: '/login',
   notFound: '/notFound',
   componentsDemo: '/components-demo',
+  results: '/results',
 };

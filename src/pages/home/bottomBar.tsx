@@ -30,7 +30,7 @@ function BackBackground() {
           height: '100%',
           width: '100%',
           '.MuiTypography-root': {
-            fontSize: '20px',
+            fontSize: '1.25rem',
             fontWeight: 700,
           },
         }}

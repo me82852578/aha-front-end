@@ -7,12 +7,11 @@ import {
   ListItemAvatar,
   ListItemText,
 } from '@mui/material';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { UserType } from '../../types';
-import { usersApi } from '../../api/source';
 import ListItemSkeleton from './listItemSkeleton';
 import { StyledChipButton } from '../../components';
+import { useUsersInfiniteQuery } from '../../api/source/users';
 
 interface UsersListProps {
   type: 'followers' | 'following';
@@ -22,21 +21,9 @@ const pageSize = 15;
 
 function UsersList({ type }: UsersListProps) {
   const { ref, inView } = useInView();
-
   const {
     data, fetchNextPage, hasNextPage, isFetchingNextPage, isSuccess,
-  } = useInfiniteQuery({
-    queryKey: [usersApi.sourceUrl, type],
-    queryFn:
-        type === 'followers'
-          ? () => usersApi.getData({ pageSize })
-          : () => usersApi.getIsFollowingData({ pageSize }),
-    getNextPageParam: (lastPage) => (
-      lastPage.totalPages === lastPage.page
-        ? undefined
-        : lastPage.page + 1
-    ),
-  });
+  } = useUsersInfiniteQuery({ type, pageSize });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -56,11 +43,7 @@ function UsersList({ type }: UsersListProps) {
         },
       }}
     >
-      {!isSuccess
-        && Array.from(Array(pageSize + 5).keys()).map((k) => (
-          <ListItemSkeleton key={k} />
-        ))}
-      {data
+      {isSuccess && data
         && data.pages.map((group) => group.data.map((item: UserType) => (
           <ListItem sx={{ px: '16px' }} key={item.id}>
             <ListItemAvatar>
@@ -69,7 +52,7 @@ function UsersList({ type }: UsersListProps) {
             <ListItemText primary={item.name} secondary={item.username} />
             <Box sx={{ pl: 2 }}>
               <StyledChipButton
-                onClick={() => { }}
+                onClick={() => {}}
                 variant={item.isFollowing ? 'contained' : 'outlined'}
               >
                 {item.isFollowing ? 'Following' : 'Follow'}
@@ -77,8 +60,8 @@ function UsersList({ type }: UsersListProps) {
             </Box>
           </ListItem>
         )))}
-      {isFetchingNextPage
-        && Array.from(Array(pageSize).keys()).map((k) => (
+      {(isFetchingNextPage || !isSuccess)
+        && Array.from(Array(pageSize + 5).keys()).map((k) => (
           <ListItemSkeleton key={k} />
         ))}
       <div ref={ref} />
