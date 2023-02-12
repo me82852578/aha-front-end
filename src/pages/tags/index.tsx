@@ -42,7 +42,7 @@ function Tag({ name = '', count = 0 }: TagProps) {
         <Typography fontSize="14.9px" noWrap>
           {name}
         </Typography>
-        <Typography fontSize="11.17px" color="#B2B2B2">
+        <Typography fontSize="11.17px" color="#B2B2B2" noWrap>
           {count}
           {' '}
           Results

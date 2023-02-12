@@ -7,30 +7,31 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { TagType } from '../../types';
-import { tagsApi } from '../../api/source';
+import { UserType } from '../../types';
+import { usersApi } from '../../api/source';
 import { GoBackButton, StyledButton } from '../../components';
 
-interface ResultProps extends Omit<TagType, 'id'> {}
+interface ResultProps extends Omit<UserType, 'id'> {}
 
-function Result({ name = '', count = 0 }: ResultProps) {
+function Result({ name = '', username = '', avater = '' }: ResultProps) {
   return (
     <Stack width="100%" spacing={{ xs: '20.33px', md: '12px' }}>
       <Box
         component="img"
         width="100%"
-        alt="test"
-        src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=248&fit=crop&auto=format"
+        alt={name}
+        src={avater}
         sx={{ objectFit: 'cover', aspectRatio: { xs: '3 / 1.995', sm: '3 / 2' } }}
+        loading="lazy"
       />
       <Box pt="1px">
         <Typography fontSize="14.9px" noWrap>
           {name}
         </Typography>
-        <Typography fontSize="11.17px" color="#B2B2B2">
-          {count}
+        <Typography fontSize="11.17px" color="#B2B2B2" noWrap>
+          by
           {' '}
-          Results
+          {username}
         </Typography>
       </Box>
     </Stack>
@@ -41,8 +42,8 @@ function Results() {
   const {
     data, isLoading, isSuccess, isFetching,
   } = useQuery({
-    queryKey: [tagsApi.sourceUrl],
-    queryFn: tagsApi.getData,
+    queryKey: [usersApi.sourceUrl],
+    queryFn: usersApi.getData,
   });
 
   return (
@@ -94,7 +95,7 @@ function Results() {
               />
             </Grid>
           ))
-          : data.map((item: TagType, index:number) => (
+          : data.data.map((item: UserType, index:number) => (
             <Grid key={item.id} position="relative" xs={12} sm={6} md={4}>
               {index === 0
               && (
@@ -110,7 +111,7 @@ function Results() {
                   }}
                 />
               )}
-              <Result name={item.name} count={item.count} />
+              <Result name={item.name} username={item.username} avater={item.avater} />
             </Grid>
           ))}
         {Array.from(Array(4).keys()).map((k) => (
@@ -124,7 +125,7 @@ function Results() {
             paddingY="0px"
             visibility="hidden"
           >
-            <Result name="null" count={0} />
+            <Result />
           </Grid>
         ))}
       </Grid>
