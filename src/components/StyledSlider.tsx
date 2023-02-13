@@ -3,7 +3,7 @@ import {
   Box, Slider, SliderProps, styled,
 } from '@mui/material';
 
-const StyledSlider = styled(Slider)(({ theme }) => ({
+export const StyledSlider = styled(Slider)(({ theme }) => ({
   height: 8,
   '& .MuiSlider-track': {
     border: 'none',
@@ -31,7 +31,7 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
   },
 }));
 
-function CustomSlider({
+export function CustomSlider({
   onChangeCommitted, defaultValue, value, marks, ...other
 }: SliderProps) {
   const [currentVal, setCurrentVal] = useState(
@@ -48,13 +48,12 @@ function CustomSlider({
   };
 
   return (
-    <Box>
-      <StyledSlider
-        {...other}
-        defaultValue={defaultValue}
-        value={value}
-        onChangeCommitted={handleOnChangeCommitted}
-        marks={
+    <StyledSlider
+      {...other}
+      defaultValue={defaultValue}
+      value={value}
+      onChangeCommitted={handleOnChangeCommitted}
+      marks={
           Array.isArray(marks)
             ? marks.map((mark) => ({
               ...mark,
@@ -69,9 +68,6 @@ function CustomSlider({
             }))
             : marks
         }
-      />
-    </Box>
+    />
   );
 }
-
-export default CustomSlider;

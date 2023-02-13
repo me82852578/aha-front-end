@@ -7,9 +7,13 @@ import {
 } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { shallow } from 'zustand/shallow';
 import { UserType } from '../../types';
 import { GoBackButton, StyledButton } from '../../components';
 import { useUsersInfiniteQuery } from '../../api/source/users';
+import { path } from '../../configs';
+import { useHomePageSearchStore } from '../../store';
 
 interface ResultProps extends Omit<UserType, 'id'> {}
 
@@ -41,9 +45,44 @@ function Result({ name = '', username = '', avater = '' }: ResultProps) {
   );
 }
 
-const pageSize = 10;
-const keyword = 'al';
 function Results() {
+  const navigate = useNavigate();
+
+  const searchParamsStore = useHomePageSearchStore(
+    (state) => ({
+      keyword: state.keyword,
+      pageSize: state.pageSize,
+      updateKeyword: state.updateKeyword,
+      updatePageSize: state.updatePageSize,
+    }),
+    shallow,
+  );
+
+  // If enter the results page directly through the url without query, init query,
+  // then setSearchParams.
+  const [searchParams, setSearchParams] = useSearchParams({
+    keyword: searchParamsStore.keyword,
+    pageSize: searchParamsStore.pageSize.toString(),
+  });
+  const { keyword, pageSize } = Object.fromEntries(searchParams);
+
+  // If enter the results page directly through the url with any different query,
+  // update the store data.
+  useEffect(() => {
+    setSearchParams((params) => {
+      const currentPageSize = params.get('pageSize');
+      const currentKeyword = params.get('keyword');
+      if (currentPageSize && currentPageSize !== searchParamsStore.pageSize.toString()) {
+        searchParamsStore.updatePageSize(parseInt(currentPageSize, 10));
+      }
+      if (currentKeyword && currentKeyword !== searchParamsStore.keyword) {
+        searchParamsStore.updateKeyword(currentKeyword);
+      }
+      return params;
+    });
+  }, [searchParamsStore, setSearchParams]);
+
+  const pageSizeInt = parseInt(pageSize, 10);
   const { ref, inView } = useInView();
   const {
     data,
@@ -51,7 +90,7 @@ function Results() {
     hasNextPage,
     isFetchingNextPage,
     isSuccess,
-  } = useUsersInfiniteQuery({ type: 'followers', pageSize, keyword });
+  } = useUsersInfiniteQuery({ type: 'followers', pageSize: pageSizeInt, keyword });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -59,8 +98,27 @@ function Results() {
     }
   }, [fetchNextPage, hasNextPage, inView]);
 
+  const renderGoBackButton = () => (
+    <GoBackButton
+      label="Results"
+      position="absolute"
+      top={{ xs: '-44px', sm: '-52px' }}
+      left={{ xs: '-46px', md: '-34px' }}
+      spacing={2}
+      slotsProp={{
+        typography: {
+          fontSize: { xs: '1.5rem', md: '1.875rem' },
+        },
+        iconButton: {
+          sx: { visibility: { xs: 'hidden', md: 'visible' } },
+        },
+      }}
+      onClick={() => navigate(path.home)}
+    />
+  );
+
   return (
-    <>
+    <Box>
       <Box height={{ xs: '80px', md: '160px' }} />
       <Grid
         container
@@ -73,23 +131,7 @@ function Results() {
           && isSuccess
           && data.pages.map((group) => group.data.map((item: UserType, index: number) => (
             <Grid key={item.id} position="relative" xs={12} sm={6} md={4}>
-              {group.page === 1 && index === 0 && (
-              <GoBackButton
-                label="Results"
-                position="absolute"
-                top={{ xs: '-44px', sm: '-52px' }}
-                left={{ xs: '-46px', md: '-34px' }}
-                spacing={2}
-                slotsProp={{
-                  typography: {
-                    fontSize: { xs: '1.5rem', md: '1.875rem' },
-                  },
-                  iconButton: {
-                    sx: { visibility: { xs: 'hidden', md: 'visible' } },
-                  },
-                }}
-              />
-              )}
+              {group.page === 1 && index === 0 && renderGoBackButton()}
               <Result
                 name={item.name}
                 username={item.username}
@@ -99,39 +141,13 @@ function Results() {
           )))}
         {isSuccess && !data.pages[0].total && (
         <Grid position="relative" xs={12} sm={6} md={4}>
-          <GoBackButton
-            label="Results"
-            position="absolute"
-            top={{ xs: '-44px', sm: '-52px' }}
-            left={{ xs: '-46px', md: '-34px' }}
-            spacing={2}
-            slotsProp={{
-              typography: { fontSize: { xs: '1.5rem', md: '1.875rem' } },
-              iconButton: {
-                sx: { visibility: { xs: 'hidden', md: 'visible' } },
-              },
-            }}
-          />
+          {renderGoBackButton()}
         </Grid>
         )}
         {(isFetchingNextPage || !isSuccess)
-          && Array.from(Array(pageSize).keys()).map((k, index) => (
+          && Array.from(Array(pageSizeInt).keys()).map((k, index) => (
             <Grid key={k} position="relative" xs={12} sm={6} md={4}>
-              {index === 0 && !data && (
-                <GoBackButton
-                  label="Results"
-                  position="absolute"
-                  top={{ xs: '-44px', sm: '-52px' }}
-                  left={{ xs: '-46px', md: '-34px' }}
-                  spacing={2}
-                  slotsProp={{
-                    typography: { fontSize: { xs: '1.5rem', md: '1.875rem' } },
-                    iconButton: {
-                      sx: { visibility: { xs: 'hidden', md: 'visible' } },
-                    },
-                  }}
-                />
-              )}
+              {index === 0 && !data && renderGoBackButton()}
               <Skeleton
                 variant="rounded"
                 width="100%"
@@ -180,7 +196,7 @@ function Results() {
         {hasNextPage ? 'MORE' : 'NO MORE'}
         <Box ref={ref} sx={{ display: { xs: 'block', md: 'none' } }} />
       </StyledButton>
-    </>
+    </Box>
   );
 }
 

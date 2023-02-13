@@ -2,43 +2,73 @@ import React, { useState } from 'react';
 import {
   Divider, Stack, Typography,
 } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { createSearchParams, useNavigate } from 'react-router-dom';
+import { shallow } from 'zustand/shallow';
 import { StyledButton, StyledSlider, StyledTextField } from '../../components';
 import BottomBar from './bottomBar';
+import { path } from '../../configs';
+import { useHomePageSearchStore } from '../../store';
 
-const marks = [
-  {
-    label: 3,
-    value: 3,
-  },
-  {
-    label: 6,
-    value: 6,
-  },
-  {
-    label: 9,
-    value: 9,
-  },
-  {
-    label: 12,
-    value: 12,
-  },
-  {
-    label: 15,
-    value: 15,
-  },
-  {
-    label: 50,
-    value: 20,
-  },
-];
+function calculateValue(value:number) {
+  if (value === 20) return 50;
+  return value;
+}
+
+const marks = [3, 6, 9, 12, 15, 20].map((value) => ({
+  value,
+  label: calculateValue(value),
+}));
+
+type FormFieldsType = {
+  keyword: string;
+  pageSize: number;
+};
 
 function Home() {
-  const [prePageResults, setPrePageResults] = useState(15);
+  const navigate = useNavigate();
+  const {
+    keyword, pageSize, updateKeyword, updatePageSize,
+  } = useHomePageSearchStore(
+    (state) => ({
+      keyword: state.keyword,
+      pageSize: state.pageSize,
+      updateKeyword: state.updateKeyword,
+      updatePageSize: state.updatePageSize,
+    }),
+    shallow,
+  );
+  const { register, handleSubmit } = useForm<FormFieldsType>({});
+
+  const handleOnSubmit = (data : FormFieldsType) => {
+    updateKeyword(data.keyword);
+    updatePageSize(data.pageSize);
+
+    const searchParams = createSearchParams(
+      Object.keys(data)
+        .reduce(
+          (acc, curr) => ({ ...acc, [curr]: data[curr as keyof FormFieldsType].toString() }),
+          {},
+        ),
+    ).toString();
+    navigate({
+      pathname: path.results,
+      search: searchParams,
+    });
+  };
+
+  const [prePageResults, setPrePageResults] = useState(pageSize);
   return (
-    <Stack height="100%" justifyContent="space-between" pt="56px">
+    <Stack
+      component="form"
+      height="100%"
+      justifyContent="space-between"
+      pt="56px"
+      onSubmit={handleSubmit(handleOnSubmit)}
+    >
       <Stack spacing="20px">
         <Typography fontSize="1.5rem" fontWeight={400}>Search</Typography>
-        <StyledTextField placeholder="Keyword" />
+        <StyledTextField defaultValue={keyword} placeholder="Keyword" {...register('keyword')} />
         <Divider sx={{ py: '10px' }} />
         <Typography fontSize="1.5rem" fontWeight={400}># of results per page</Typography>
         <Stack direction="row" alignItems="flex-end" spacing="10px">
@@ -47,18 +77,26 @@ function Home() {
         </Stack>
         <StyledSlider
           marks={marks}
+          defaultValue={pageSize}
+          {...register('pageSize', {
+            onChange(e) {
+              setPrePageResults(calculateValue(e.target.value));
+            },
+            setValueAs(v) {
+              return calculateValue(parseInt(v, 10));
+            },
+          })}
           max={20}
           min={3}
           step={null}
-          value={prePageResults}
-          onChange={(e, newVal) => {
-            if (typeof newVal !== 'number') return;
-            setPrePageResults(newVal);
-          }}
         />
         <Divider sx={{ py: '10px' }} />
       </Stack>
-      <StyledButton variant="contained" sx={{ marginBottom: '100px', width: { md: '343px' } }}>
+      <StyledButton
+        variant="contained"
+        sx={{ marginBottom: '100px', width: { md: '343px' } }}
+        type="submit"
+      >
         SEARCH
       </StyledButton>
       <BottomBar />

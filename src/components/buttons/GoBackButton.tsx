@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { ReactEventHandler, ReactNode } from 'react';
 import {
   IconButton,
@@ -10,7 +11,7 @@ import {
   TypographyProps,
 } from '@mui/material';
 
-interface GoBackButtonProps extends StackProps {
+export interface GoBackButtonProps extends StackProps {
   label?: ReactNode;
   icon?: ReactNode;
   onClick?:ReactEventHandler;
@@ -21,7 +22,7 @@ interface GoBackButtonProps extends StackProps {
   };
 }
 
-function GoBackButton({
+export function GoBackButton({
   label, icon, slotsProp, onClick, ...other
 }: GoBackButtonProps) {
   return (
@@ -33,11 +34,11 @@ function GoBackButton({
         {icon || (
         <SvgIcon {...slotsProp?.icon}>
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_6_483)">
+            <g>
               <path d="M19.2702 4.10349L17.3333 2.16663L6.5 13L17.3333 23.8333L19.2702 21.8964L10.3737 13L19.2702 4.10349Z" fill="white" />
             </g>
             <defs>
-              <clipPath id="clip0_6_483">
+              <clipPath>
                 <rect width="26" height="26" fill="white" />
               </clipPath>
             </defs>
@@ -53,5 +54,3 @@ function GoBackButton({
     </Stack>
   );
 }
-
-export default GoBackButton;
