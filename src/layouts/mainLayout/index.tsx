@@ -34,7 +34,6 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
         display: 'flex',
         backgroundColor: 'background.main',
         height: '100%',
-        // overflowY: 'auto',
         overflowY: 'overlay',
         overflowX: 'hidden',
       }}
