@@ -27,7 +27,7 @@ declare module '@mui/material/styles' {
     md: true;
     lg: true;
     xl: true;
-    desktop: true; // adds the `mobile` breakpoint
+    desktop: true;
   }
 
 }
@@ -59,6 +59,12 @@ const theme = createTheme({
         },
         '#root': {
           height: '100%',
+        },
+        input: {
+          // To prevent zoom in on input focus on mobile devices.
+          '@media (max-width:899px)': {
+            fontSize: '1rem !important',
+          },
         },
       },
     },
