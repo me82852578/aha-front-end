@@ -17,13 +17,13 @@ export const StyledSlider = styled(Slider)(({ theme }) => ({
     display: 'none',
   },
   '& .MuiSlider-thumb': {
-    height: 24,
-    width: 24,
+    height: 26,
+    width: 26,
     backgroundColor: theme.palette.background.light,
     border: '6px solid #FFD05D',
   },
   '.MuiSlider-markLabel': {
-    top: '36px',
+    top: '42px !important',
     fontSize: '1rem',
   },
   '.test': {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Box,
   Divider, Stack, Typography,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -11,11 +12,11 @@ import { path } from '../../configs';
 import { useHomePageSearchStore } from '../../store';
 
 function calculateValue(value:number) {
-  if (value === 20) return 50;
+  if (value === 19) return 50;
   return value;
 }
 
-const marks = [3, 6, 9, 12, 15, 20].map((value) => ({
+const marks = [3, 6, 9, 12, 15, 19].map((value) => ({
   value,
   label: calculateValue(value),
 }));
@@ -62,39 +63,45 @@ function Home() {
     <Stack
       component="form"
       height="100%"
-      justifyContent="space-between"
-      pt="56px"
+      pt={{ xs: '0px', sm: '54px' }}
       onSubmit={handleSubmit(handleOnSubmit)}
     >
-      <Stack spacing="20px">
-        <Typography fontSize="1.5rem" fontWeight={400}>Search</Typography>
-        <StyledTextField defaultValue={keyword} placeholder="Keyword" {...register('keyword')} />
-        <Divider sx={{ py: '10px' }} />
-        <Typography fontSize="1.5rem" fontWeight={400}># of results per page</Typography>
-        <Stack direction="row" alignItems="flex-end" spacing="10px">
-          <Typography fontSize="3rem" fontWeight={700}>{prePageResults}</Typography>
-          <Typography fontSize="1rem" fontWeight={400} lineHeight="56px">results</Typography>
+      <Stack spacing={{ xs: '28px', sm: '30px' }}>
+        <Stack spacing={{ xs: '16px', sm: '20px' }}>
+          <Typography fontSize="1.5rem" fontWeight={400}>Search</Typography>
+          <StyledTextField defaultValue={keyword} placeholder="Keyword" {...register('keyword')} />
         </Stack>
-        <StyledSlider
-          marks={marks}
-          defaultValue={pageSize}
-          {...register('pageSize', {
-            onChange(e) {
-              setPrePageResults(calculateValue(e.target.value));
-            },
-            setValueAs(v) {
-              return calculateValue(parseInt(v, 10));
-            },
-          })}
-          max={20}
-          min={3}
-          step={null}
-        />
-        <Divider sx={{ py: '10px' }} />
+        <Divider sx={{ display: { xs: 'none', sm: 'block' } }} />
+        <Stack spacing={{ xs: '16px', sm: '20px' }}>
+          <Typography fontSize="1.5rem" fontWeight={400}># of results per page</Typography>
+          <Stack direction="row" alignItems="flex-end" spacing="10px">
+            <Typography fontSize="3rem" fontWeight={700} lineHeight="50px">{prePageResults}</Typography>
+            <Typography fontSize="1rem" fontWeight={400} lineHeight="200%">results</Typography>
+          </Stack>
+          <Box position="relative" height="50px">
+            <StyledSlider
+              marks={marks}
+              defaultValue={pageSize}
+              {...register('pageSize', {
+                onChange(e) {
+                  setPrePageResults(calculateValue(e.target.value));
+                },
+                setValueAs(v) {
+                  return calculateValue(parseInt(v, 10));
+                },
+              })}
+              max={19}
+              min={3}
+              step={null}
+              sx={{ position: 'absolute', top: { xs: '-9px', sm: '-16px' } }}
+            />
+          </Box>
+        </Stack>
+        <Divider sx={{ pt: { xs: '194px', sm: '0px' } }} />
       </Stack>
       <StyledButton
         variant="contained"
-        sx={{ marginBottom: '100px', width: { md: '343px' } }}
+        sx={{ width: { md: '343px' }, mt: { xs: '80px', sm: '335px' } }}
         type="submit"
       >
         SEARCH
