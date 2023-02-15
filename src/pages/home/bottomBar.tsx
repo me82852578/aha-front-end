@@ -1,22 +1,26 @@
 import React from 'react';
 import {
-  AppBar, BottomNavigation, BottomNavigationAction, Stack, Typography,
+  AppBar, BottomNavigation, BottomNavigationAction, Box, Stack, Typography,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { navItems } from '../../configs';
 
+interface BottomBarProps {
+  height? : string
+}
+
 const appBarStyles = {
-  height: '66px',
   position: 'fixed',
   top: 'auto',
   bottom: 0,
 };
 
-function BackBackground() {
+function BackBackground({ height = '66px' } : BottomBarProps) {
   return (
     <AppBar
       sx={{
         ...appBarStyles,
+        height,
         display: { sm: 'flex', md: 'none' },
         backgroundColor: 'background.dark',
       }}
@@ -46,14 +50,15 @@ function BackBackground() {
   );
 }
 
-function BottomBar() {
+function BottomBar({ height = '66px' }:BottomBarProps) {
   const location = useLocation();
   const navigate = useNavigate();
   return (
-    <>
+    <Box position="relative" height={height}>
       <AppBar
         sx={{
           ...appBarStyles,
+          height,
           zIndex: 1101,
           display: { md: 'none' },
           background: 'rgba(24, 24, 24, 0.2)',
@@ -87,8 +92,8 @@ function BottomBar() {
           ))}
         </BottomNavigation>
       </AppBar>
-      <BackBackground />
-    </>
+      <BackBackground height={height} />
+    </Box>
   );
 }
 

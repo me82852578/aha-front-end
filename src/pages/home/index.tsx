@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Box,
-  Divider, Stack, Typography,
+  Box, Divider, Stack, Typography,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { createSearchParams, useNavigate } from 'react-router-dom';
@@ -66,7 +65,7 @@ function Home() {
       pt={{ xs: '0px', sm: '54px' }}
       onSubmit={handleSubmit(handleOnSubmit)}
     >
-      <Stack spacing={{ xs: '28px', sm: '30px' }}>
+      <Stack spacing={{ xs: '28px', sm: '30px' }} flexGrow={1}>
         <Stack spacing={{ xs: '16px', sm: '20px' }}>
           <Typography fontSize="1.5rem" fontWeight={400}>Search</Typography>
           <StyledTextField defaultValue={keyword} placeholder="Keyword" {...register('keyword')} />
@@ -97,16 +96,20 @@ function Home() {
             />
           </Box>
         </Stack>
-        <Divider sx={{ pt: { xs: '194px', sm: '0px' } }} />
+        <Divider sx={{ flexGrow: { xs: 1, sm: 0 } }} />
       </Stack>
       <StyledButton
         variant="contained"
-        sx={{ width: { md: '343px' }, mt: { xs: '80px', sm: '335px' } }}
+        sx={{
+          width: { md: '343px' },
+          mt: { xs: '80px', sm: '335px' },
+          mb: '24px',
+        }}
         type="submit"
       >
         SEARCH
       </StyledButton>
-      <BottomBar />
+      <BottomBar height="66px" />
     </Stack>
   );
 }
