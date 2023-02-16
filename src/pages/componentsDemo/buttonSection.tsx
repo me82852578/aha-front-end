@@ -10,36 +10,41 @@ function ButtonSection() {
       <Typography component="h2" fontSize="1.5rem" fontWeight={700}>
         Button
       </Typography>
-      <Grid container spacing="41px" mt="37px" pb="80px">
+      <Grid container spacing="41px" mt="12px" pb="77px">
         <Grid>
-          <Typography variant="body1" fontWeight={700}>
-            NORMAL
-          </Typography>
-          <StyledButton variant="contained">BUTTON</StyledButton>
+          <Stack spacing="9px">
+            <Typography fontSize="0.875rem" fontWeight={700}>
+              NORMAL
+            </Typography>
+            <StyledButton variant="contained">BUTTON</StyledButton>
+          </Stack>
         </Grid>
         <Grid>
-          <Typography variant="body1" fontWeight={700}>
-            HOVER
-          </Typography>
-          <StyledButton variant="outlined">BUTTON</StyledButton>
+          <Stack spacing="9px">
+            <Typography fontSize="0.875rem" fontWeight={700}>
+              HOVER
+            </Typography>
+            <StyledButton variant="outlined" sx={{ width: '343px' }}>BUTTON</StyledButton>
+          </Stack>
         </Grid>
       </Grid>
-      <Stack spacing="25px">
+      <Stack spacing="23px">
         {['Outlined', 'Contained'].map((key, index) => (
           <Stack
             direction="row"
             key={key}
             alignItems="flex-end"
             flexWrap="wrap"
+            spacing="0px"
           >
-            <Box width="114px">
-              <Typography fontSize="0.875rem" fontWeight={300}>
+            <Box width="108px">
+              <Typography lineHeight={2} fontSize="0.875rem" fontWeight={300}>
                 {key}
               </Typography>
             </Box>
-            <Stack direction="row" spacing="60px">
+            <Stack direction="row" spacing="53px">
               <Stack>
-                <Typography fontSize="0.875rem" fontWeight={700} pb="10px">
+                <Typography fontSize="0.875rem" fontWeight={700} pb="8px">
                   NORMAL
                 </Typography>
                 <StyledChipButton
@@ -49,7 +54,7 @@ function ButtonSection() {
                 </StyledChipButton>
               </Stack>
               <Stack>
-                <Typography fontSize="0.875rem" fontWeight={700} pb="10px">
+                <Typography fontSize="0.875rem" fontWeight={700} pb="8px">
                   HOVER
                 </Typography>
                 <StyledChipButton

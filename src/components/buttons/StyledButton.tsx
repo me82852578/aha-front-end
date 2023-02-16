@@ -24,9 +24,11 @@ const StyledButton = styled(Button)(({ theme, variant = 'outlined' }) => theme.u
       ...contained,
     },
   }),
+  width: '335px',
+  lineHeight: 2,
   borderWidth: '1px',
   borderStyle: 'solid',
-  width: '335px',
+  py: '5px',
 }));
 
 export default StyledButton;

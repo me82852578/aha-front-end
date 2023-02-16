@@ -46,7 +46,7 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
         <Toolbar sx={{ paddingX: '21px', height: topBarHeight, backgroundColor: 'background.main' }}>
           {location.pathname !== path.home ? (
             <GoBackButton
-              label="Home page"
+              label="Home Page"
               slotsProp={{ iconButton: { sx: { paddingLeft: 0 } } }}
               onClick={() => navigate(path.home)}
             />
@@ -70,10 +70,11 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
         <Box
           sx={{
             width: '100%',
-            height: '88px',
+            height: '87px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            pt: '3px',
           }}
         >
           <Logo />

@@ -14,7 +14,7 @@ function Sidebar() {
   const location = useLocation();
 
   return (
-    <List>
+    <List sx={{ pt: 0 }}>
       {navItems.map((item) => (
         <ListItem
           key={item.id}
@@ -54,8 +54,8 @@ function Sidebar() {
                 sx={{
                   '.MuiBadge-dot': {
                     backgroundColor: '#00D1FF',
-                    minWidth: '7px',
-                    height: '7px',
+                    minWidth: '5px',
+                    height: '5px',
                     top: '-2px',
                     right: '-2px',
                   },
@@ -70,7 +70,7 @@ function Sidebar() {
             </ListItemIcon>
             <ListItemText
               primary={item.title}
-              sx={{ opacity: 0 }}
+              sx={{ opacity: 0, mt: 0, mb: '8px' }}
               primaryTypographyProps={{ fontSize: '0.75rem' }}
             />
           </ListItemButton>
