@@ -11,6 +11,8 @@ function Logo() {
       component={Link}
       to={path.home}
       fontWeight={700}
+      fontSize="13px"
+      letterSpacing="-0.8px"
       sx={{
         background: (theme) => theme.palette.gradient.main,
         backgroundClip: 'text',

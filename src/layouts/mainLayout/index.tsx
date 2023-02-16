@@ -70,10 +70,11 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
         <Box
           sx={{
             width: '100%',
-            height: '88px',
+            height: '87px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            pt: '3px',
           }}
         >
           <Logo />
