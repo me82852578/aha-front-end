@@ -27,7 +27,7 @@ function Result({ name = '', username = '', avater = '' }: ResultProps) {
         src={avater}
         sx={{
           objectFit: 'cover',
-          aspectRatio: { xs: '3 / 1.995', sm: '3 / 2' },
+          aspectRatio: { xs: '3 / 1.99', sm: '3 / 2' },
         }}
         loading="lazy"
       />
@@ -102,12 +102,13 @@ function Results() {
     <GoBackButton
       label="Results"
       position="absolute"
-      top={{ xs: '-44px', sm: '-52px' }}
-      left={{ xs: '-46px', md: '-34px' }}
+      top={{ xs: '-41px', sm: '-52px' }}
+      left={{ xs: '-43px', md: '-34px' }}
       spacing={2}
       slotsProp={{
         typography: {
           fontSize: { xs: '1.5rem', md: '1.875rem' },
+          pl: '4px',
         },
         iconButton: {
           sx: { visibility: { xs: 'hidden', md: 'visible' } },
@@ -125,19 +126,34 @@ function Results() {
         columnSpacing="34px"
         rowSpacing={{ xs: '40px', md: '31px' }}
         justifyContent="center"
-        pb="44px"
+        pb={{ xs: '44px', md: '37px' }}
       >
         {data
           && isSuccess
           && data.pages.map((group) => group.data.map((item: UserType, index: number) => (
-            <Grid key={item.id} position="relative" xs={12} sm={6} md={4}>
-              {group.page === 1 && index === 0 && renderGoBackButton()}
-              <Result
-                name={item.name}
-                username={item.username}
-                avater={item.avater}
-              />
-            </Grid>
+            <>
+              <Grid key={item.id} position="relative" xs={12} sm={6} md={4}>
+                {group.page === 1 && index === 0 && renderGoBackButton()}
+                <Result
+                  name={item.name}
+                  username={item.username}
+                  avater={item.avater}
+                />
+              </Grid>
+              {index % 6 === 5 && (
+              <Grid
+                xs={12}
+                sx={{
+                  display: { sx: 'none', md: 'block' },
+                  py: 0,
+                }}
+
+              >
+                <Box height="16px" />
+              </Grid>
+              )}
+            </>
+
           )))}
         {isSuccess && !data.pages[0].total && (
         <Grid position="relative" xs={12} sm={6} md={4}>
@@ -155,7 +171,7 @@ function Results() {
                 sx={{
                   borderRadius: '8px',
                   mb: '8px',
-                  aspectRatio: { xs: '3 / 1.995', sm: '3 / 2' },
+                  aspectRatio: { xs: '3 / 2', sm: '3 / 2' },
                 }}
               />
               <Skeleton
