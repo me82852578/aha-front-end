@@ -25,20 +25,20 @@ const marks = [
   },
   {
     label: 50,
-    value: 20,
+    value: 19,
   },
 ];
 
 function SliderSection() {
   return (
     <Stack>
-      <Typography component="h2" fontSize="1.5rem" fontWeight={700} mb="37px">
+      <Typography component="h2" fontSize="1.5rem" fontWeight={700} mb="23px">
         Slider
       </Typography>
-      <Stack spacing="48px">
+      <Stack spacing="32px">
         <StyledSlider
           marks={marks}
-          max={20}
+          max={19}
           min={3}
           step={null}
           defaultValue={15}
@@ -46,7 +46,7 @@ function SliderSection() {
         <StyledSlider
           defaultValue={50}
           marks={marks}
-          max={20}
+          max={19}
           min={3}
           step={null}
         />
