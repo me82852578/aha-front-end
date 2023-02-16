@@ -46,7 +46,7 @@ export default function MainLayout({ disableStyleWrapped = false } : MainLayoutP
         <Toolbar sx={{ paddingX: '21px', height: topBarHeight, backgroundColor: 'background.main' }}>
           {location.pathname !== path.home ? (
             <GoBackButton
-              label="Home page"
+              label="Home Page"
               slotsProp={{ iconButton: { sx: { paddingLeft: 0 } } }}
               onClick={() => navigate(path.home)}
             />
