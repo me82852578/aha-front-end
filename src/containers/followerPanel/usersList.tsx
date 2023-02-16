@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   List,
-  ListItem,
   ListItemAvatar,
   ListItemText,
 } from '@mui/material';
@@ -12,6 +11,7 @@ import { UserType } from '../../types';
 import ListItemSkeleton from './listItemSkeleton';
 import { StyledChipButton } from '../../components';
 import { useUsersInfiniteQuery } from '../../api/source/users';
+import ListItem from './styledListItem';
 
 interface UsersListProps {
   type: 'followers' | 'following';
@@ -34,6 +34,7 @@ function UsersList({ type }: UsersListProps) {
   return (
     <List
       sx={{
+        pt: '23px',
         width: '100%',
         height: '100%',
         overflowY: 'scroll',
@@ -45,9 +46,17 @@ function UsersList({ type }: UsersListProps) {
     >
       {isSuccess && data
         && data.pages.map((group) => group.data.map((item: UserType) => (
-          <ListItem sx={{ px: '16px' }} key={item.id}>
+          <ListItem key={item.id}>
             <ListItemAvatar>
-              <Avatar alt={item.name} src={item.avater} />
+              <Avatar
+                variant="rounded"
+                alt={item.name}
+                src={item.avater}
+                sx={{
+                  border: '1px solid #F8F8F8',
+                  borderRadius: '5px',
+                }}
+              />
             </ListItemAvatar>
             <ListItemText primary={item.name} secondary={item.username} />
             <Box sx={{ pl: 2 }}>

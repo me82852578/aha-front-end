@@ -1,13 +1,21 @@
 import React from 'react';
 import {
-  ListItem, ListItemAvatar, ListItemText, Skeleton,
+  ListItemAvatar, ListItemText, Skeleton,
 } from '@mui/material';
+import ListItem from './styledListItem';
 
 function ListItemSkeleton() {
   return (
-    <ListItem sx={{ px: '16px' }}>
+    <ListItem>
       <ListItemAvatar>
-        <Skeleton variant="circular" width={40} height={40} />
+        <Skeleton
+          variant="rounded"
+          width={40}
+          height={40}
+          sx={{
+            borderRadius: '5px',
+          }}
+        />
       </ListItemAvatar>
       <ListItemText
         primary={(

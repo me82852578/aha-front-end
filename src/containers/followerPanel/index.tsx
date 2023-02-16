@@ -91,6 +91,8 @@ function FollowerPanel() {
                 textTransform: 'none',
                 fontSize: '1rem',
                 fontWeight: 700,
+                mt: '17px',
+                pb: '9px',
               }}
             />
           ))}
