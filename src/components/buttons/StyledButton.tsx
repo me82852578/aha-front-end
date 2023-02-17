@@ -29,6 +29,7 @@ const StyledButton = styled(Button)(({ theme, variant = 'outlined' }) => theme.u
   borderWidth: '1px',
   borderStyle: 'solid',
   py: '5px',
+  minWidth: '60px',
 }));
 
 export default StyledButton;
