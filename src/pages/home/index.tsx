@@ -72,7 +72,7 @@ function Home() {
         </Stack>
         <Divider sx={{ display: { xs: 'none', sm: 'block' } }} />
         <Stack spacing={{ xs: '16px', sm: '20px' }}>
-          <Typography fontSize="1.5rem" fontWeight={400}># of results per page</Typography>
+          <Typography fontSize="1.5rem" fontWeight={400}># Of Results Per Page</Typography>
           <Stack direction="row" alignItems="flex-end" spacing="10px">
             <Typography fontSize="3rem" fontWeight={700} lineHeight="50px">{prePageResults}</Typography>
             <Typography fontSize="1rem" fontWeight={400} lineHeight="200%">results</Typography>
