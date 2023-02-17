@@ -1,8 +1,22 @@
-# Aha front-end exam
+# Aha front-end exam2
 
-## Table of Contents
+## Online Demo
 
-[TOC]
+- [Demo website](https://aha-demo.jay-studio.net/)
+- [Testing Figma file](https://www.figma.com/file/hEJSLsJD8JoCQq3z6HDQif/Front-end-Exam?node-id=0%3A1&t=nKFXVN6U317lB7i5-0)
+
+💡 **If demo website can't available, please send a mail (me82852578@gmail.com), thanks !**
+
+## Required checklist
+
+- [x] Typescript
+- [x] React.js
+- [x] MUI (Material UI)
+- [x] Airbnb Coding Style
+- [x] Hosted on my own server and domain
+- [x] Create a new Figma file to test
+- [x] Exam2 all done
+- [x] Create a mock API using Mirage.js ( the API structure refers to the [Aha API](https://avl-frontend-exam.herokuapp.com) ).
 
 ## Quick start
 
@@ -15,7 +29,7 @@
 2. Start project
 
     ```sh
-    npm run start
+    npm start
     ```
 
 3. Access `http://localhost:3000` in your browser.
