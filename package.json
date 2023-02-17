@@ -1,6 +1,6 @@
 {
-  "name": "front-end-exam",
-  "version": "0.0.0-alpha1",
+  "name": "front-end-exam2",
+  "version": "1.0.4",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
