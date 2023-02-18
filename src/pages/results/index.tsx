@@ -19,7 +19,7 @@ interface ResultProps extends Omit<UserType, 'id'> {}
 
 function Result({ name = '', username = '', avater = '' }: ResultProps) {
   return (
-    <Stack width="100%" spacing={{ xs: '20.33px', md: '12px' }}>
+    <Stack component="section" width="100%" spacing={{ xs: '20.33px', md: '12px' }}>
       <Box
         component="img"
         width="100%"

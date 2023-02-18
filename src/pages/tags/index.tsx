@@ -24,7 +24,7 @@ function Tags() {
 
   return (
     <>
-      <Container fixed maxWidth="md">
+      <Container component="section" fixed maxWidth="md">
         <Box height={{ xs: '150px', md: '150px' }} />
         <Grid
           container

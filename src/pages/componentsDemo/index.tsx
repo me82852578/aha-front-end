@@ -8,7 +8,7 @@ import InputSection from './inputSection';
 
 function ComponentsDemo() {
   return (
-    <Box component="section" pt="88px">
+    <Box component="section" pt={{ xs: '20px', md: '88px' }}>
       <Typography component="h1" fontSize="1.875rem" fontWeight={700} pb="89px">
         Component
       </Typography>
