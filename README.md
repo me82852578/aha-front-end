@@ -7,7 +7,11 @@
 
 💡 **If demo website can't available or something wrong, please send me a mail (me82852578@gmail.com), thanks !**
 
-## Requirements checklist
+---
+
+## Checklist
+
+### Requirements
 
 - [x] Typescript.
 - [x] React.js.
@@ -17,6 +21,14 @@
 - [x] Create a new Figma file to test.
 - [x] Exam2 all done.
 - [x] Create a mock API using Mirage.js ( the API structure refers to the [Aha API](https://avl-frontend-exam.herokuapp.com) ).
+
+### Extra
+
+- [x] Exam1 - Password input.
+- [ ] Exam1 - Calendar.
+- [x] Implement RWD.
+
+---
 
 ## Quick start
 
