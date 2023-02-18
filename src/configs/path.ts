@@ -5,4 +5,5 @@ export default {
   notFound: '/notFound',
   componentsDemo: '/components-demo',
   results: '/results',
+  exam1: '/exam1',
 };

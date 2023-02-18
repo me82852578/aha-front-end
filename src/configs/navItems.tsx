@@ -21,7 +21,9 @@ function TempIcon(props:SvgIconProps) {
   );
 }
 
-const { home, tags, componentsDemo } = path;
+const {
+  home, tags, componentsDemo, exam1,
+} = path;
 
 export default [
   {
@@ -40,6 +42,12 @@ export default [
     id: componentsDemo,
     title: 'Components',
     url: componentsDemo,
+    icon: TempIcon,
+  },
+  {
+    id: exam1,
+    title: 'Exam 1',
+    url: exam1,
     icon: TempIcon,
   },
 ];
