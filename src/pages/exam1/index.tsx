@@ -1,11 +1,13 @@
+import { Stack } from '@mui/material';
 import React from 'react';
+import PasswordInput from './passwordInput';
 
 function Exam1() {
   return (
-    <div>Exam1</div>
+    <Stack component="section">
+      <PasswordInput />
+    </Stack>
   );
 }
-
-Exam1.propTypes = {};
 
 export default Exam1;
