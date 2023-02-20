@@ -2,7 +2,8 @@
 
 ## Online Demo
 
-- [Demo website](https://aha-demo.jay-studio.net/)
+- [Demo website (All)](https://aha-demo.jay-studio.net/)
+- [Demo website (Exam1)](https://aha-demo.jay-studio.net/exam1)
 - [Testing Figma file](https://www.figma.com/file/hEJSLsJD8JoCQq3z6HDQif/Front-end-Exam?node-id=0%3A1&t=nKFXVN6U317lB7i5-0)
 
 💡 **If demo website can't available or something wrong, please send me a mail (me82852578@gmail.com), thanks !**
@@ -25,7 +26,7 @@
 ### Extra
 
 - [x] Exam1 - Password input.
-- [ ] Exam1 - Calendar.
+- [x] Exam1 - Calendar.
 - [x] Implement RWD.
 
 ---
