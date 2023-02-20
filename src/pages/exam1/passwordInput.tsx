@@ -30,7 +30,7 @@ const StyledTextField = styled(TextField)({
       borderRadius: '8px',
       borderWidth: '3px',
       legend: {
-        width: '65px',
+        width: 'auto',
       },
     },
     '&.Mui-focused fieldset': {
@@ -65,8 +65,8 @@ function PasswordInput() {
   );
 
   return (
-    <Stack spacing={10} pt={{ xs: '20px', md: '68px' }}>
-      <Typography component="h2" fontSize={{ xs: '1.2rem', md: '1.5rem' }}>
+    <Stack spacing={5} pt={{ xs: '20px', md: '68px' }}>
+      <Typography component="h2" fontSize={{ xs: '1.3rem', md: '1.5rem' }}>
         Password Input
       </Typography>
       <Stack component="form" spacing="20px" onSubmit={handleSubmit(onSubmit)}>
