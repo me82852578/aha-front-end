@@ -89,12 +89,15 @@ const StyledLayout = {
         mr: 0,
       },
     },
+    '.MuiPickersCalendarHeader-switchViewButton': {
+      display: 'none',
+    },
   },
   '.MuiPickersToolbar-root > span': {
     textTransform: 'none',
   },
   '.MuiPickersSlideTransition-root': {
-    minHeight: '221px',
+    minHeight: '230px',
   },
   '.MuiDialogActions-root': {
     paddingRight: '25px',
